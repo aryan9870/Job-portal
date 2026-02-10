@@ -1,8 +1,19 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Applyjob from "./pages/Applyjob";
+import Applictions from "./pages/Applictions";
+
 
 const App = () => {
   return (
-    <h1 className="text-3xl font-bold text-blue-500">Tailwind Working</h1>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/apply-job/:id" element={<Applyjob />}/>
+        <Route path="/applications" element={<Applictions />}/>
+      </Routes>
+    </div>
   );
 };
 
