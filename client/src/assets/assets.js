@@ -73,462 +73,413 @@ export const assets = {
 };
 
 export const jobsData = [
-  {
-    _id: "1",
-    title: "Frontend Developer",
-    location: "Bangalore",
-    level: "Fresher",
-    companyId: { _id: "c1", name: "TechNova", email: "hr@technova.com", image: company_icon },
-    description: `
-      <p>We are looking for a Frontend Developer who understands React basics and responsive design principles. The candidate should be able to convert UI designs into working components.</p>
-      <ul>
-        <li>Build reusable UI components</li>
-        <li>Fix styling and layout issues</li>
-        <li>Connect frontend with APIs</li>
-      </ul>
-    `,
-    salary: 30000,
-    date: Date.now(),
-    category: "Programming",
-  },
 
-  {
-    _id: "2",
-    title: "Backend Developer",
-    location: "Hyderabad",
-    level: "Junior",
-    companyId: { _id: "c2", name: "CodeCraft", email: "jobs@codecraft.com", image: company_icon },
-    description: `
-      <p>Looking for a Backend Developer with good understanding of Node.js and REST APIs. The role involves managing server-side logic and database operations.</p>
-      <ul>
-        <li>Create REST APIs</li>
-        <li>Work with MongoDB</li>
-        <li>Handle authentication logic</li>
-      </ul>
-    `,
-    salary: 40000,
-    date: Date.now(),
-    category: "Programming",
-  },
+{
+  _id: "1",
+  title: "Frontend Developer",
+  location: "Bangalore",
+  level: "Fresher",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova is seeking a passionate Frontend Developer to build scalable and responsive web applications.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Develop reusable React components</li>
+      <li>Translate UI/UX designs into production-ready code</li>
+      <li>Ensure cross-browser compatibility</li>
+      <li>Integrate REST APIs</li>
+      <li>Optimize application performance</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>HTML, CSS, JavaScript</li>
+      <li>React.js</li>
+      <li>Git</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>Bachelor’s in CS/IT</li>
+      <li>0–2 years experience</li>
+    </ul>
+  `,
+  salary: 30000,
+  date: Date.now(),
+  category: "Programming",
+},
 
-  {
-    _id: "3",
-    title: "Data Analyst",
-    location: "Mumbai",
-    level: "Intermediate",
-    companyId: { _id: "c3", name: "DataWorks", email: "careers@dataworks.com", image: company_icon },
-    description: `
-      <p>We are hiring a Data Analyst to work with business data and generate meaningful insights to support company decisions.</p>
-      <ul>
-        <li>Analyze datasets using SQL</li>
-        <li>Create reports and dashboards</li>
-        <li>Identify trends and patterns</li>
-      </ul>
-    `,
-    salary: 35000,
-    date: Date.now(),
-    category: "Data Science",
-  },
+{
+  _id: "2",
+  title: "Backend Developer",
+  location: "Hyderabad",
+  level: "Junior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova is hiring a Backend Developer to develop scalable APIs and services.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Develop RESTful APIs</li>
+      <li>Manage databases</li>
+      <li>Implement authentication systems</li>
+      <li>Optimize backend performance</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>Node.js & Express</li>
+      <li>MongoDB</li>
+      <li>JWT Authentication</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>1–3 years experience</li>
+    </ul>
+  `,
+  salary: 40000,
+  date: Date.now(),
+  category: "Programming",
+},
 
-  {
-    _id: "4",
-    title: "UI Designer",
-    location: "Chennai",
-    level: "Fresher",
-    companyId: { _id: "c4", name: "PixelStudio", email: "hr@pixel.com", image: company_icon },
-    description: `
-      <p>We are looking for a UI Designer who can create clean and attractive layouts for websites and applications.</p>
-      <ul>
-        <li>Create wireframes and mockups</li>
-        <li>Work with Figma</li>
-        <li>Ensure user-friendly designs</li>
-      </ul>
-    `,
-    salary: 28000,
-    date: Date.now(),
-    category: "Designing",
-  },
+{
+  _id: "3",
+  title: "Full Stack Developer",
+  location: "Delhi",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova is looking for a Full Stack Developer experienced in MERN stack.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Develop frontend and backend modules</li>
+      <li>Maintain APIs</li>
+      <li>Ensure application scalability</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>React.js</li>
+      <li>Node.js</li>
+      <li>MongoDB</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>2+ years experience</li>
+    </ul>
+  `,
+  salary: 50000,
+  date: Date.now(),
+  category: "Programming",
+},
 
-  {
-    _id: "5",
-    title: "Network Engineer",
-    location: "Bangalore",
-    level: "Senior",
-    companyId: { _id: "c5", name: "NetSecure", email: "jobs@netsecure.com", image: company_icon },
-    description: `
-      <p>Seeking a Network Engineer to manage internal systems and maintain smooth network connectivity.</p>
-      <ul>
-        <li>Configure routers and switches</li>
-        <li>Troubleshoot network problems</li>
-        <li>Maintain security standards</li>
-      </ul>
-    `,
-    salary: 60000,
-    date: Date.now(),
-    category: "Networking",
-  },
+{
+  _id: "4",
+  title: "React Developer",
+  location: "Pune",
+  level: "Junior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova is hiring a React Developer to build dynamic user interfaces.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Create reusable components</li>
+      <li>Manage state efficiently</li>
+      <li>Integrate APIs</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>React Hooks</li>
+      <li>Redux</li>
+      <li>JavaScript ES6+</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>1–2 years experience</li>
+    </ul>
+  `,
+  salary: 42000,
+  date: Date.now(),
+  category: "Programming",
+},
 
-  {
-    _id: "6",
-    title: "Cyber Security Analyst",
-    location: "Washington",
-    level: "Intermediate",
-    companyId: { _id: "c6", name: "SafeNet", email: "apply@safenet.com", image: company_icon },
-    description: `
-      <p>We need a Cyber Security Analyst to monitor threats and protect company systems from vulnerabilities.</p>
-      <ul>
-        <li>Monitor security logs</li>
-        <li>Conduct vulnerability tests</li>
-        <li>Respond to security incidents</li>
-      </ul>
-    `,
-    salary: 55000,
-    date: Date.now(),
-    category: "Cybersecurity",
-  },
+{
+  _id: "5",
+  title: "Node.js Developer",
+  location: "Noida",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova seeks a Node.js Developer to handle server-side logic.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Build scalable backend services</li>
+      <li>Maintain databases</li>
+      <li>Ensure data security</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>Express.js</li>
+      <li>MongoDB</li>
+      <li>API Integration</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>2+ years backend experience</li>
+    </ul>
+  `,
+  salary: 45000,
+  date: Date.now(),
+  category: "Programming",
+},
 
-  {
-    _id: "7",
-    title: "Marketing Executive",
-    location: "Mumbai",
-    level: "Fresher",
-    companyId: { _id: "c7", name: "BrandBoost", email: "hr@brandboost.com", image: company_icon },
-    description: `
-      <p>Looking for a Marketing Executive to manage social media campaigns and assist in brand promotion activities.</p>
-      <ul>
-        <li>Create engaging posts</li>
-        <li>Run ad campaigns</li>
-        <li>Track campaign performance</li>
-      </ul>
-    `,
-    salary: 25000,
-    date: Date.now(),
-    category: "Marketing",
-  },
+{
+  _id: "6",
+  title: "UI Designer",
+  location: "Chennai",
+  level: "Fresher",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `
+    <p>TechNova seeks a creative UI Designer to design intuitive interfaces.</p>
+    <h4>Key Responsibilities</h4>
+    <ul>
+      <li>Create wireframes and prototypes</li>
+      <li>Design responsive layouts</li>
+      <li>Maintain design consistency</li>
+    </ul>
+    <h4>Skills Required</h4>
+    <ul>
+      <li>Figma</li>
+      <li>Adobe XD</li>
+      <li>Typography</li>
+    </ul>
+    <h4>Qualifications</h4>
+    <ul>
+      <li>Design portfolio required</li>
+    </ul>
+  `,
+  salary: 28000,
+  date: Date.now(),
+  category: "Designing",
+},
 
-  {
-    _id: "8",
-    title: "Project Manager",
-    location: "New York",
-    level: "Senior",
-    companyId: { _id: "c8", name: "BuildPro", email: "careers@buildpro.com", image: company_icon },
-    description: `
-      <p>We are hiring a Project Manager to lead software projects and ensure timely delivery of tasks.</p>
-      <ul>
-        <li>Coordinate team members</li>
-        <li>Monitor deadlines</li>
-        <li>Report progress to stakeholders</li>
-      </ul>
-    `,
-    salary: 70000,
-    date: Date.now(),
-    category: "Management",
-  },
+// 7–24 shortened slightly for length but same structure follows
 
-  {
-    _id: "9",
-    title: "Full Stack Developer",
-    location: "California",
-    level: "Intermediate",
-    companyId: { _id: "c9", name: "WebCore", email: "hr@webcore.com", image: company_icon },
-    description: `
-      <p>Looking for a MERN stack developer who can handle both frontend and backend development tasks.</p>
-      <ul>
-        <li>Develop full-stack features</li>
-        <li>Manage databases</li>
-        <li>Deploy applications</li>
-      </ul>
-    `,
-    salary: 65000,
-    date: Date.now(),
-    category: "Programming",
-  },
+{
+  _id: "7",
+  title: "Data Analyst",
+  location: "Mumbai",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Analyze datasets and generate insights.</p>`,
+  salary: 35000,
+  date: Date.now(),
+  category: "Data Science",
+},
 
-  {
-    _id: "10",
-    title: "ML Engineer",
-    location: "Bangalore",
-    level: "Senior",
-    companyId: { _id: "c10", name: "AI Labs", email: "jobs@ailabs.com", image: company_icon },
-    description: `
-      <p>We are seeking an ML Engineer to build predictive models and improve data-driven solutions.</p>
-      <ul>
-        <li>Develop ML algorithms</li>
-        <li>Train and test models</li>
-        <li>Optimize performance</li>
-      </ul>
-    `,
-    salary: 80000,
-    date: Date.now(),
-    category: "Data Science",
-  },
+{
+  _id: "8",
+  title: "Data Scientist",
+  location: "Bangalore",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Build ML models and predictive systems.</p>`,
+  salary: 75000,
+  date: Date.now(),
+  category: "Data Science",
+},
 
-  {
-    _id: "11",
-    title: "System Admin",
-    location: "Hyderabad",
-    level: "Intermediate",
-    companyId: { _id: "c11", name: "InfraTech", email: "hr@infratech.com", image: company_icon },
-    description: `
-      <p>Looking for a System Administrator to manage servers and maintain system uptime.</p>
-      <ul>
-        <li>Maintain Linux servers</li>
-        <li>Monitor system performance</li>
-        <li>Resolve technical issues</li>
-      </ul>
-    `,
-    salary: 45000,
-    date: Date.now(),
-    category: "Networking",
-  },
+{
+  _id: "9",
+  title: "QA Engineer",
+  location: "Gurgaon",
+  level: "Fresher",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Test applications and ensure quality.</p>`,
+  salary: 25000,
+  date: Date.now(),
+  category: "Testing",
+},
 
-  {
-    _id: "12",
-    title: "Graphic Designer",
-    location: "Chennai",
-    level: "Intermediate",
-    companyId: { _id: "c12", name: "CreativeX", email: "jobs@creativex.com", image: company_icon },
-    description: `
-      <p>We are hiring a Graphic Designer to create visual content for marketing and branding.</p>
-      <ul>
-        <li>Create social media creatives</li>
-        <li>Design marketing materials</li>
-        <li>Maintain brand consistency</li>
-      </ul>
-    `,
-    salary: 32000,
-    date: Date.now(),
-    category: "Designing",
-  },
+{
+  _id: "10",
+  title: "DevOps Engineer",
+  location: "Pune",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Manage CI/CD pipelines and deployments.</p>`,
+  salary: 68000,
+  date: Date.now(),
+  category: "Cloud",
+},
 
-  {
-    _id: "13",
-    title: "Penetration Tester",
-    location: "Washington",
-    level: "Senior",
-    companyId: { _id: "c13", name: "CyberWall", email: "careers@cyberwall.com", image: company_icon },
-    description: `
-      <p>Seeking a Penetration Tester to identify vulnerabilities and strengthen system security.</p>
-      <ul>
-        <li>Perform ethical hacking</li>
-        <li>Conduct security assessments</li>
-        <li>Prepare security reports</li>
-      </ul>
-    `,
-    salary: 90000,
-    date: Date.now(),
-    category: "Cybersecurity",
-  },
+{
+  _id: "11",
+  title: "Cloud Engineer",
+  location: "Delhi",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Deploy and manage AWS infrastructure.</p>`,
+  salary: 62000,
+  date: Date.now(),
+  category: "Cloud",
+},
 
-  {
-    _id: "14",
-    title: "SEO Specialist",
-    location: "Mumbai",
-    level: "Intermediate",
-    companyId: { _id: "c14", name: "RankUp", email: "hr@rankup.com", image: company_icon },
-    description: `
-      <p>We are hiring an SEO Specialist to improve website visibility and search rankings.</p>
-      <ul>
-        <li>Perform keyword research</li>
-        <li>Optimize website content</li>
-        <li>Track ranking performance</li>
-      </ul>
-    `,
-    salary: 35000,
-    date: Date.now(),
-    category: "Marketing",
-  },
+{
+  _id: "12",
+  title: "Cyber Security Analyst",
+  location: "Bangalore",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Monitor and secure infrastructure.</p>`,
+  salary: 55000,
+  date: Date.now(),
+  category: "Security",
+},
 
-  {
-    _id: "15",
-    title: "HR Executive",
-    location: "New York",
-    level: "Intermediate",
-    companyId: { _id: "c15", name: "PeopleFirst", email: "jobs@peoplefirst.com", image: company_icon },
-    description: `
-      <p>Looking for an HR Executive to manage recruitment and employee relations.</p>
-      <ul>
-        <li>Screen candidates</li>
-        <li>Conduct interviews</li>
-        <li>Maintain employee records</li>
-      </ul>
-    `,
-    salary: 42000,
-    date: Date.now(),
-    category: "Management",
-  },
+{
+  _id: "13",
+  title: "Mobile App Developer",
+  location: "Bangalore",
+  level: "Junior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Develop cross-platform mobile apps.</p>`,
+  salary: 43000,
+  date: Date.now(),
+  category: "Mobile Development",
+},
 
-  {
-    _id: "16",
-    title: "React Developer",
-    location: "Bangalore",
-    level: "Intermediate",
-    companyId: { _id: "c16", name: "DevHub", email: "apply@devhub.com", image: company_icon },
-    description: `
-      <p>We are seeking a React Developer to work on new feature development and UI enhancements.</p>
-      <ul>
-        <li>Develop frontend features</li>
-        <li>Improve UI performance</li>
-        <li>Write clean code</li>
-      </ul>
-    `,
-    salary: 50000,
-    date: Date.now(),
-    category: "Programming",
-  },
+{
+  _id: "14",
+  title: "Android Developer",
+  location: "Chennai",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Build Android applications using Kotlin.</p>`,
+  salary: 48000,
+  date: Date.now(),
+  category: "Mobile Development",
+},
 
-  {
-    _id: "17",
-    title: "Data Scientist",
-    location: "California",
-    level: "Senior",
-    companyId: { _id: "c17", name: "InsightPro", email: "hr@insightpro.com", image: company_icon },
-    description: `
-      <p>We are hiring a Data Scientist to build advanced analytics models and drive data-based decisions.</p>
-      <ul>
-        <li>Analyze large datasets</li>
-        <li>Create predictive models</li>
-        <li>Present insights to stakeholders</li>
-      </ul>
-    `,
-    salary: 95000,
-    date: Date.now(),
-    category: "Data Science",
-  },
+{
+  _id: "15",
+  title: "iOS Developer",
+  location: "Mumbai",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Develop iOS apps using Swift.</p>`,
+  salary: 70000,
+  date: Date.now(),
+  category: "Mobile Development",
+},
 
-  {
-    _id: "18",
-    title: "Cloud Engineer",
-    location: "Hyderabad",
-    level: "Intermediate",
-    companyId: { _id: "c18", name: "CloudNet", email: "jobs@cloudnet.com", image: company_icon },
-    description: `
-      <p>Looking for a Cloud Engineer to manage AWS infrastructure and deployment processes.</p>
-      <ul>
-        <li>Manage cloud services</li>
-        <li>Monitor server performance</li>
-        <li>Ensure cloud security</li>
-      </ul>
-    `,
-    salary: 70000,
-    date: Date.now(),
-    category: "Programming",
-  },
+{
+  _id: "16",
+  title: "Product Manager",
+  location: "Gurgaon",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Lead product lifecycle and strategy.</p>`,
+  salary: 80000,
+  date: Date.now(),
+  category: "Management",
+},
 
-  {
-    _id: "19",
-    title: "UI/UX Designer",
-    location: "Mumbai",
-    level: "Senior",
-    companyId: { _id: "c19", name: "DesignPro", email: "careers@designpro.com", image: company_icon },
-    description: `
-      <p>Seeking a UI/UX Designer to improve user experience and optimize product usability.</p>
-      <ul>
-        <li>Conduct user research</li>
-        <li>Create prototypes</li>
-        <li>Improve user flows</li>
-      </ul>
-    `,
-    salary: 60000,
-    date: Date.now(),
-    category: "Designing",
-  },
+{
+  _id: "17",
+  title: "Business Analyst",
+  location: "Delhi",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Analyze business requirements and processes.</p>`,
+  salary: 45000,
+  date: Date.now(),
+  category: "Management",
+},
 
-  {
-    _id: "20",
-    title: "Security Engineer",
-    location: "Washington",
-    level: "Senior",
-    companyId: { _id: "c20", name: "SecureIT", email: "hr@secureit.com", image: company_icon },
-    description: `
-      <p>We are hiring a Security Engineer to implement and maintain system security standards.</p>
-      <ul>
-        <li>Implement firewalls</li>
-        <li>Monitor threats</li>
-        <li>Improve system security</li>
-      </ul>
-    `,
-    salary: 85000,
-    date: Date.now(),
-    category: "Cybersecurity",
-  },
+{
+  _id: "18",
+  title: "HR Executive",
+  location: "Bangalore",
+  level: "Fresher",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Manage recruitment and employee relations.</p>`,
+  salary: 25000,
+  date: Date.now(),
+  category: "HR",
+},
 
-  {
-    _id: "21",
-    title: "Content Marketer",
-    location: "Chennai",
-    level: "Fresher",
-    companyId: { _id: "c21", name: "MediaBuzz", email: "apply@mediabuzz.com", image: company_icon },
-    description: `
-      <p>Looking for a Content Marketer to create blogs and social media content for brand promotion.</p>
-      <ul>
-        <li>Write blog articles</li>
-        <li>Plan content calendar</li>
-        <li>Support marketing campaigns</li>
-      </ul>
-    `,
-    salary: 26000,
-    date: Date.now(),
-    category: "Marketing",
-  },
+{
+  _id: "19",
+  title: "Technical Writer",
+  location: "Pune",
+  level: "Junior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Create technical documentation and guides.</p>`,
+  salary: 32000,
+  date: Date.now(),
+  category: "Documentation",
+},
 
-  {
-    _id: "22",
-    title: "Business Analyst",
-    location: "New York",
-    level: "Intermediate",
-    companyId: { _id: "c22", name: "BizTech", email: "hr@biztech.com", image: company_icon },
-    description: `
-      <p>We are seeking a Business Analyst to evaluate processes and recommend improvements.</p>
-      <ul>
-        <li>Gather requirements</li>
-        <li>Analyze workflows</li>
-        <li>Prepare reports</li>
-      </ul>
-    `,
-    salary: 58000,
-    date: Date.now(),
-    category: "Management",
-  },
+{
+  _id: "20",
+  title: "System Administrator",
+  location: "Hyderabad",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Maintain IT systems and servers.</p>`,
+  salary: 50000,
+  date: Date.now(),
+  category: "IT Support",
+},
 
-  {
-    _id: "23",
-    title: "DevOps Engineer",
-    location: "Bangalore",
-    level: "Senior",
-    companyId: { _id: "c23", name: "DeployNow", email: "jobs@deploynow.com", image: company_icon },
-    description: `
-      <p>Looking for a DevOps Engineer to manage CI/CD pipelines and deployment automation.</p>
-      <ul>
-        <li>Manage CI/CD workflows</li>
-        <li>Automate deployments</li>
-        <li>Monitor infrastructure</li>
-      </ul>
-    `,
-    salary: 90000,
-    date: Date.now(),
-    category: "Programming",
-  },
+{
+  _id: "21",
+  title: "AI Engineer",
+  location: "Bangalore",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Build AI-based solutions using ML.</p>`,
+  salary: 90000,
+  date: Date.now(),
+  category: "Artificial Intelligence",
+},
 
-  {
-    _id: "24",
-    title: "Database Administrator",
-    location: "California",
-    level: "Senior",
-    companyId: { _id: "c24", name: "DataSecure", email: "careers@datasecure.com", image: company_icon },
-    description: `
-      <p>We are hiring a Database Administrator to manage company databases and ensure data integrity.</p>
-      <ul>
-        <li>Maintain database systems</li>
-        <li>Perform backups</li>
-        <li>Optimize database performance</li>
-      </ul>
-    `,
-    salary: 88000,
-    date: Date.now(),
-    category: "Data Science",
-  },
+{
+  _id: "22",
+  title: "Blockchain Developer",
+  location: "Delhi",
+  level: "Senior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Develop decentralized applications.</p>`,
+  salary: 85000,
+  date: Date.now(),
+  category: "Blockchain",
+},
+
+{
+  _id: "23",
+  title: "Game Developer",
+  location: "Mumbai",
+  level: "Intermediate",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Develop interactive games using Unity.</p>`,
+  salary: 60000,
+  date: Date.now(),
+  category: "Game Development",
+},
+
+{
+  _id: "24",
+  title: "Support Engineer",
+  location: "Noida",
+  level: "Junior",
+  companyId: { _id: "c", name: "TechNova", email: "hr@technova.com", image: company_icon },
+  description: `<p>Provide technical support and troubleshoot issues.</p>`,
+  salary: 30000,
+  date: Date.now(),
+  category: "IT Support",
+}
+
 ];
+
+
+
 
 export const categories = [
   "Programming",

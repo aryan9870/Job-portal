@@ -1,1 +1,36 @@
 @import "tailwindcss";
+
+@layer base {
+    html {
+        scroll-behavior: sm;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.rich-text {
+    font-size: 15px;
+    color: #7A7B7D;
+}
+
+.rich-text p {
+    margin-bottom: 16px;
+}
+
+.rich-text h4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 16px;
+}
+
+.rich-text ul {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: disc;
+    margin-left: 2rem;
+}
