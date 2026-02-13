@@ -530,3 +530,22 @@ export const jobsData = [
   },
 ];
 
+export const categories = [
+  "Programming",
+  "Data Science",
+  "Designing",
+  "Networking",
+  "Management",
+  "Marketing",
+  "Cybersecurity"
+]
+
+export const locations = [
+  "Banglore",
+  "Washington",
+  "Hydrabad",
+  "Mumbai",
+  "California",
+  "Chennai",
+  "New York"
+]

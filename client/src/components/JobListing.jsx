@@ -1,18 +1,82 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import { assets, jobsData } from "../assets/assets";
+import { assets, jobsData, categories, locations } from "../assets/assets";
 import JobCard from "./JobCard";
 
 const JobListing = () => {
   const { isSearched, searchFilter, setSearchFilter } = useContext(AppContext);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState(jobsData);
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) {
+        return prev.filter((c) => c !== category);
+      } else {
+        return [...prev, category];
+      }
+    });
+  };
+
+  const handleLocationChange = (location) => {
+    setSelectedLocations((prev) => {
+      if (prev.includes(location)) {
+        return prev.filter((l) => l !== location);
+      } else {
+        return [...prev, location];
+      }
+    });
+  };
+
+  useEffect(() => {
+    
+    let tempJobs = jobsData;
+
+    // Title Search Filter
+    if (searchFilter.title !== "") {
+      tempJobs = tempJobs.filter((job) =>
+        job.title.toLowerCase().includes(searchFilter.title.toLowerCase()),
+      );
+    }
+
+    // Location Search (hero input wala)
+    if (searchFilter.location !== "") {
+      tempJobs = tempJobs.filter((job) =>
+        job.location
+          .toLowerCase()
+          .includes(searchFilter.location.toLowerCase()),
+      );
+    }
+
+    // Category Checkbox Filter
+    if (selectedCategories.length > 0) {
+      tempJobs = tempJobs.filter((job) =>
+        selectedCategories.includes(job.category),
+      );
+    }
+
+    // Sidebar Location Checkbox Filter
+    if (selectedLocations.length > 0) {
+      tempJobs = tempJobs.filter((job) =>
+        selectedLocations.includes(job.location),
+      );
+    }
+
+    setFilteredJobs(tempJobs);
+
+  }, [searchFilter, selectedCategories, selectedLocations]);
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 6; // 6 jobs per page
 
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
 
-  const currentJobs = jobsData.slice(indexOfFirstJob, indexOfLastJob);
+  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
   return (
     <div className="container px-10 mx-auto flex py-8">
@@ -64,34 +128,20 @@ const JobListing = () => {
         <div className="max-lg:hidden">
           <h4 className="font-medium text-lg py-4">Search by Categories</h4>
           <ul className="space-y-4 text-gray-600">
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Programming
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" /> Data
-              Science
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Networking
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Designing
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Cybersecurity
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Marketing
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Management
-            </li>
+            {categories.map((category, index) => {
+              return (
+                <li key={index} className="flex gap-3 items-center">
+                  <input
+                    onClick={(e) => handleCategoryChange(category)}
+                    className="scale-125"
+                    type="checkbox"
+                    name={category}
+                    id=""
+                  />{" "}
+                  {category}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -99,34 +149,20 @@ const JobListing = () => {
         <div className="max-lg:hidden">
           <h4 className="font-medium text-lg py-4 pt-14">Search by Location</h4>
           <ul className="space-y-4 text-gray-600">
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Bangalore
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Washington
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Hyderabad
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Mumbai
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              California
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" />{" "}
-              Chennai
-            </li>
-            <li className="flex gap-3 items-center">
-              <input className="scale-125" type="checkbox" name="" id="" /> New
-              York
-            </li>
+            {locations.map((location, index) => {
+              return (
+                <li key={index} className="flex gap-3 items-center">
+                  <input
+                    onClick={(e) => handleLocationChange(location)}
+                    className="scale-125"
+                    type="checkbox"
+                    name={location}
+                    id=""
+                  />{" "}
+                  {location}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
@@ -151,19 +187,19 @@ const JobListing = () => {
             <img src={assets.left_arrow_icon} alt="" />
           </button>
 
-          {[...Array(Math.ceil(jobsData.length / jobsPerPage))].map(
-            (_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentPage(index + 1)}
-                className={`px-4 py-2 border border-gray-300 rounded ${
-                  currentPage === index + 1 ? "bg-blue-100 text-blue-500" : "text-gray-500"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ),
-          )}
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`px-4 py-2 border border-gray-300 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-100 text-blue-500"
+                  : "text-gray-500"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
 
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
