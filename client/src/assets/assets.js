@@ -500,3 +500,51 @@ export const locations = [
   "Chennai",
   "New York"
 ]
+
+export const jobsApplied = [
+  {
+    id: "1",
+    company: "TechNova",
+    logo: company_icon,
+    title: "Frontend Developer",
+    location: "Bangalore",
+    date: "12 Feb 2026",
+    status: "Interview"
+  },
+  {
+    id: "2",
+    company: "CodeCraft",
+    logo: company_icon,
+    title: "React Developer",
+    location: "Hyderabad",
+    date: "08 Feb 2026",
+    status: "Pending"
+  },
+  {
+    id: "3",
+    company: "InnoSoft",
+    logo: company_icon,
+    title: "Full Stack Developer",
+    location: "Mumbai",
+    date: "02 Feb 2026",
+    status: "Rejected"
+  },
+  {
+    id: "4",
+    company: "NextGen Labs",
+    logo: company_icon,
+    title: "Backend Developer",
+    location: "Chennai",
+    date: "28 Jan 2026",
+    status: "Interview"
+  },
+  {
+    id: "5",
+    company: "DevHive",
+    logo: company_icon,
+    title: "UI Developer",
+    location: "Delhi",
+    date: "20 Jan 2026",
+    status: "Pending"
+  }
+];
