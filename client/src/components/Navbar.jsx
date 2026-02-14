@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
 
-  const { setShowRecruiterLogin } = useContext(AppContext);
+  const { setShowRecruiterLogin, setShowUserLogin } = useContext(AppContext);
   const navigate = useNavigate()
 
   return (
@@ -14,7 +14,7 @@ const Navbar = () => {
             <img onClick={() => navigate("/")} className='cursor-pointer' src={assets.logo} alt="" />
             <div className='flex gap-4'>
                 <button onClick={() => setShowRecruiterLogin(true)} className='text-gray-600 cursor-pointer'>Recruiter Login</button>
-                <button className='bg-blue-600 cursor-pointer text-white px-9 py-2 rounded-full'>Login</button>
+                <button onClick={() => setShowUserLogin(true)} className='bg-blue-600 cursor-pointer text-white px-9 py-2 rounded-full'>Login</button>
             </div>
         </div>
     </div>

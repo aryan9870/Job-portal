@@ -10,11 +10,13 @@ export const AppContextProvider = (props) => {
     const [isSearched, setIsSearched] = useState(false);
 
     const [showRecruiterLogin, setShowRecruiterLogin] = useState(false);
+    const [showUserLogin, setShowUserLogin] = useState(false);
 
     const value = {
         searchFilter, setSearchFilter,
         isSearched, setIsSearched,
-        showRecruiterLogin, setShowRecruiterLogin
+        showRecruiterLogin, setShowRecruiterLogin,
+        showUserLogin, setShowUserLogin
     }
 
     return (<AppContext.Provider value={value}>
