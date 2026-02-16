@@ -548,3 +548,72 @@ export const jobsApplied = [
     status: "Pending"
   }
 ];
+
+
+
+export const applicationsData = [
+  {
+    id: 1,
+    userName: "Richard Sanford",
+    avatar: profile_img,
+    jobTitle: "Full Stack Developer",
+    location: "Bangalore",
+    resume: "resume1.pdf",
+    status: "pending"
+  },
+  {
+    id: 2,
+    userName: "Enrique Murphy",
+    avatar: profile_img,
+    jobTitle: "Data Scientist",
+    location: "San Francisco",
+    resume: "resume2.pdf",
+    status: "pending"
+  },
+  {
+    id: 3,
+    userName: "Alison Powell",
+    avatar: profile_img,
+    jobTitle: "Marketing Manager",
+    location: "London",
+    resume: "resume3.pdf",
+    status: "pending"
+  },
+  {
+    id: 4,
+    userName: "Richard Sanford",
+    avatar: profile_img,
+    jobTitle: "UI/UX Designer",
+    location: "Dubai",
+    resume: "resume4.pdf",
+    status: "pending"
+  },
+  {
+    id: 5,
+    userName: "Enrique Murphy",
+    avatar: profile_img,
+    jobTitle: "Full Stack Developer",
+    location: "Hyderabad",
+    resume: "resume5.pdf",
+    status: "pending"
+  },
+  {
+    id: 6,
+    userName: "Alison Powell",
+    avatar: profile_img,
+    jobTitle: "Data Scientist",
+    location: "New Delhi",
+    resume: "resume6.pdf",
+    status: "pending"
+  },
+  {
+    id: 7,
+    userName: "Richard Sanford",
+    avatar: profile_img,
+    jobTitle: "Marketing Manager",
+    location: "Chennai",
+    resume: "resume7.pdf",
+    status: "pending"
+  }
+];
+
