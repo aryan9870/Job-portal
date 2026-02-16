@@ -72,6 +72,7 @@ export const assets = {
   amazon_logo,
 };
 
+// sample jobs data
 export const jobsData = [
 
 {
@@ -501,6 +502,7 @@ export const locations = [
   "New York"
 ]
 
+// sample data for my applications page
 export const jobsApplied = [
   {
     id: "1",
@@ -550,7 +552,7 @@ export const jobsApplied = [
 ];
 
 
-
+// sample data for view applications page
 export const applicationsData = [
   {
     id: 1,
@@ -615,5 +617,57 @@ export const applicationsData = [
     resume: "resume7.pdf",
     status: "pending"
   }
+];
+
+// sample data for manage jobs page
+export const manageJobsData = [
+  {
+    id: 1,
+    jobTitle: "Full Stack Developer",
+    date: "2024-08-22",
+    location: "Bangalore",
+    applicants: 20,
+    visible: true,
+  },
+  {
+    id: 2,
+    jobTitle: "Data Scientist",
+    date: "2024-08-22",
+    location: "San Francisco",
+    applicants: 15,
+    visible: true,
+  },
+  {
+    id: 3,
+    jobTitle: "Marketing Manager",
+    date: "2024-09-25",
+    location: "London",
+    applicants: 2,
+    visible: false,
+  },
+  {
+    id: 4,
+    jobTitle: "UI/UX Designer",
+    date: "2024-10-15",
+    location: "Dubai",
+    applicants: 25,
+    visible: true,
+  },
+  {
+    id: 5,
+    jobTitle: "Backend Developer",
+    date: "2024-11-01",
+    location: "Mumbai",
+    applicants: 18,
+    visible: true,
+  },
+  {
+    id: 6,
+    jobTitle: "Frontend Developer",
+    date: "2024-11-05",
+    location: "Delhi",
+    applicants: 30,
+    visible: false,
+  },
 ];
 
