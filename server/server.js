@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
+import ErrorHandler from "./utils/errorHandler.js";
 
 dotenv.config();
 
@@ -19,6 +20,22 @@ app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Server is running",
+  });
+});
+
+
+// Route not found 
+app.use((req, res, next) => {
+  return next(new ErrorHandler(`Route ${req.originalUrl} not found`, 404));
+});
+
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message
   });
 });
 
