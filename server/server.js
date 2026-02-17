@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import ErrorHandler from "./utils/errorHandler.js";
+import userRouter from "./routes/userRoute.js";
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ app.get("/", (req, res) => {
     message: "Server is running",
   });
 });
+
+
+app.use("/user", userRouter);
 
 
 // Route not found 
