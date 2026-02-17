@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import ErrorHandler from "./utils/errorHandler.js";
 import userRouter from "./routes/userRoute.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Test Route
 app.get("/", (req, res) => {

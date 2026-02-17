@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
 
-
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
   const { name, email, password, role } = req.body;
@@ -106,4 +105,15 @@ export const loginUser = async (req, res, next) => {
     });
 };
 
-
+export const logoutUser = async (req, res, next) => {
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    })
+    .json({
+      success: true,
+      message: "User logged out successfully",
+    });
+};
