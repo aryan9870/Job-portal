@@ -11,6 +11,7 @@ import AddJob from "./pages/AddJob";
 import ManageJobs from "./pages/manageJobs";
 import ViewApplications from "./pages/ViewApplications";
 import "quill/dist/quill.snow.css";
+import Alert from "./components/Alert";
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <div>
+      <Alert />
       {showRecruiterLogin && <RecruiterLogin />}
       {showUserLogin && <UserLogin />}
       <Routes>

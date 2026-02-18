@@ -2,11 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { AlertContext } from "../context/AlertContext";
 
 const RecruiterLogin = () => {
-  const { setShowRecruiterLogin } = useContext(AppContext);
+  const { setShowRecruiterLogin, setIsLoggedIn, backendUrl } = useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
+  const { showAlert } = useContext(AlertContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,11 +34,46 @@ const RecruiterLogin = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (state === "Signup" && !isTextDataSubmited) {
-      setIsTextDataSubmited(true);
+    try {
+      if (state === "Signup" && !isTextDataSubmited) {
+        setIsTextDataSubmited(true);
+      } else if (state === "Signup" && isTextDataSubmited) {
+        const response = await axios.post(
+          backendUrl + '/user/register',
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            role: "recruiter",
+          },
+          {
+            withCredentials: true,
+          },
+        );
+        setIsLoggedIn(true);
+        showAlert("Welcome! Account created succesfully", "success");
+        setShowRecruiterLogin(false);
+      } else {
+        const response = await axios.post(
+          backendUrl + '/user/login',
+          {
+            email: formData.email,
+            password: formData.password,
+            role: "recruiter",
+          },
+          {
+            withCredentials: true,
+          },
+        );
+        setIsLoggedIn(true);
+        showAlert("Login Successful", "success");
+        setShowRecruiterLogin(false);
+      }
+    } catch (error) {
+      showAlert(error.response?.data?.message, "error");
     }
   };
 

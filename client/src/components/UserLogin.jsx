@@ -2,12 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
+import { AlertContext } from "../context/AlertContext";
+import axios from "axios";
 
 const UserLogin = () => {
 
-  const { setShowUserLogin } = useContext(AppContext);
+  const { setShowUserLogin, setIsLoggedIn } = useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
+  const { showAlert } = useContext(AlertContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,11 +35,46 @@ const UserLogin = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (state === "Signup" && !isTextDataSubmited) {
-      setIsTextDataSubmited(true);
+    try {
+      if (state === "Signup" && !isTextDataSubmited) {
+        setIsTextDataSubmited(true);
+      } else if (state === "Signup" && isTextDataSubmited) {
+        const response = await axios.post(
+          "http://localhost:3000/user/register",
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            role: "applicant",
+          },
+          {
+            withCredentials: true,
+          },
+        );
+        setIsLoggedIn(true);
+        showAlert("Welcome! Account created succesfully", "success");
+        setShowUserLogin(false);
+      } else {
+        const response = await axios.post(
+          "http://localhost:3000/user/login",
+          {
+            email: formData.email,
+            password: formData.password,
+            role: "applicant",
+          },
+          {
+            withCredentials: true,
+          },
+        );
+        console.log("login condition", response)
+        setIsLoggedIn(true);
+        showAlert("Login Successful", "success");
+        setShowUserLogin(false);
+      }
+    } catch (error) {
+      showAlert(error.response?.data?.message, "error");
     }
   };
 

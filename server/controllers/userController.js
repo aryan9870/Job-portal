@@ -60,7 +60,7 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   // Extract login details from request body
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   // Validate input
   if (!email || !password) {
@@ -71,6 +71,11 @@ export const loginUser = async (req, res, next) => {
   const user = await User.findOne({ email });
   if (!user) {
     return next(new ErrorHandler("Invalid email or password", 400));
+  }
+
+  // Role validation
+  if (user.role !== role) {
+    return next(new ErrorHandler("Please login using the correct account type", 400));
   }
 
   // Compare provided password with the hashed password in the database
@@ -117,3 +122,11 @@ export const logoutUser = async (req, res, next) => {
       message: "User logged out successfully",
     });
 };
+
+export const isAuthenticated = async (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "You are allredy logged in",
+    user: req.user,
+  })
+} 
