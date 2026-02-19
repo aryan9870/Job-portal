@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import ErrorHandler from "./utils/errorHandler.js";
 import userRouter from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
+import jobRouter from "./routes/jobRoute.js"
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 
 app.use("/user", userRouter);
+app.use("/job", jobRouter);
 
 
 // Route not found 
