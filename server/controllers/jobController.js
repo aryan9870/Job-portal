@@ -30,5 +30,28 @@ export const postJob = async (req, res, next) => {
   });
 };
 
+// get all jobs
+export const getJobs = async (req, res, next) => {
+  const jobs = await Job.find({ visible: true }).populate("createdBy", "name image");
 
+  res.status(200).json({
+    success: true,
+    jobs,
+  });
+};
 
+// get job by id
+export const getJobById = async (req, res, next) => {
+  const { id } = req.params;
+
+  const job = await Job.findById(id).populate("createdBy", "name image");;
+
+  if (!job) {
+    return next(new ErrorHandler("Job not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    job,
+  });
+};
