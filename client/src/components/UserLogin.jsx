@@ -7,7 +7,7 @@ import axios from "axios";
 
 const UserLogin = () => {
 
-  const { setShowUserLogin, setIsLoggedIn, backendUrl } = useContext(AppContext);
+  const { setShowUserLogin, setIsLoggedIn, backendUrl, checkIsLoggedIn } = useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
   const { showAlert } = useContext(AlertContext);
@@ -56,6 +56,7 @@ const UserLogin = () => {
         setIsLoggedIn(true);
         showAlert("Welcome! Account created succesfully", "success");
         setShowUserLogin(false);
+        checkIsLoggedIn()
       } else {
         const response = await axios.post(
           backendUrl + '/api/users/login',
@@ -72,6 +73,7 @@ const UserLogin = () => {
         setIsLoggedIn(true);
         showAlert("Login Successful", "success");
         setShowUserLogin(false);
+        checkIsLoggedIn()
       }
     } catch (error) {
       showAlert(error.response?.data?.message, "error");

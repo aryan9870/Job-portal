@@ -55,6 +55,7 @@ export const AppContextProvider = (props) => {
     user,
     setUser,
     backendUrl,
+    checkIsLoggedIn,
   };
 
   return (

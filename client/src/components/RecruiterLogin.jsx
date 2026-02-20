@@ -4,12 +4,14 @@ import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { AlertContext } from "../context/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 const RecruiterLogin = () => {
-  const { setShowRecruiterLogin, setIsLoggedIn, backendUrl } = useContext(AppContext);
+  const { setShowRecruiterLogin, setIsLoggedIn, backendUrl, checkIsLoggedIn } = useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
   const { showAlert } = useContext(AlertContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -56,6 +58,8 @@ const RecruiterLogin = () => {
         setIsLoggedIn(true);
         showAlert("Welcome! Account created succesfully", "success");
         setShowRecruiterLogin(false);
+        navigate("/dashboard");
+        checkIsLoggedIn()
       } else {
         const response = await axios.post(
           backendUrl + '/api/users/login',
@@ -71,6 +75,8 @@ const RecruiterLogin = () => {
         setIsLoggedIn(true);
         showAlert("Login Successful", "success");
         setShowRecruiterLogin(false);
+        navigate("/dashboard");
+        checkIsLoggedIn()
       }
     } catch (error) {
       showAlert(error.response?.data?.message, "error");

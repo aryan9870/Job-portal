@@ -2,11 +2,46 @@ import React, { useContext } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { AlertContext } from "../context/AlertContext";
 
 const Navbar = () => {
-  const { setShowRecruiterLogin, setShowUserLogin, isLoggedIn } =
-    useContext(AppContext);
+  const {
+    setShowRecruiterLogin,
+    setShowUserLogin,
+    isLoggedIn,
+    setIsLoggedIn,
+    user,
+    setUser,
+    backendUrl,
+  } = useContext(AppContext);
+  const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/users/logout", {
+        withCredentials: true,
+      });
+      if (data.success) {
+        // Reset frontend auth state
+        setIsLoggedIn(false);
+        setUser(null);
+        // Redirect to home
+        navigate("/");
+
+        showAlert("Logged out successfully", "success");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error?.response?.data?.message);
+      showAlert(error?.response?.data?.message, "error");
+
+      // Even if API fails, clear frontend state
+      setIsLoggedIn(false);
+      setUser(null);
+      navigate("/");
+    }
+  };
 
   return (
     <div className="shadow py-4">
@@ -20,17 +55,36 @@ const Navbar = () => {
         <div className="flex gap-4">
           {isLoggedIn ? (
             <>
-              <button
-                onClick={() => navigate('/applications')}
-                className="text-gray-600 cursor-pointer"
-              >
-                Applied jobs
-              </button>
-              <button
-                className="bg-purple-900 cursor-pointer text-white flex items-center justify-center w-10 h-10 rounded-full"
-              >
-                A
-              </button>
+              {user?.role == "applicant" ? (
+                <button
+                  onClick={() => navigate("/applications")}
+                  className="text-gray-600 cursor-pointer"
+                >
+                  Applied jobs
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate("/dashboard")}
+                  className="text-gray-600 cursor-pointer"
+                >
+                  Dashboard
+                </button>
+              )}
+              <div className="relative group">
+                <button className="bg-purple-900 cursor-pointer text-white flex items-center justify-center w-10 h-10 rounded-full">
+                  {user?.name?.slice(0, 1).toUpperCase()}
+                </button>
+                <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12 ">
+                  <ul className="list-none m-0 p-2 bg-white rounded-md border border-gray-300 text-sm">
+                    <li
+                      onClick={logout}
+                      className="py-1 px-2 cursor-pointer pr-10"
+                    >
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </>
           ) : (
             <>
