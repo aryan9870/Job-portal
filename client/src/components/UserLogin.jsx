@@ -7,7 +7,7 @@ import axios from "axios";
 
 const UserLogin = () => {
 
-  const { setShowUserLogin, setIsLoggedIn } = useContext(AppContext);
+  const { setShowUserLogin, setIsLoggedIn, backendUrl } = useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
   const { showAlert } = useContext(AlertContext);
@@ -42,7 +42,7 @@ const UserLogin = () => {
         setIsTextDataSubmited(true);
       } else if (state === "Signup" && isTextDataSubmited) {
         const response = await axios.post(
-          "http://localhost:3000/user/register",
+          backendUrl + '/api/users/register',
           {
             name: formData.name,
             email: formData.email,
@@ -58,7 +58,7 @@ const UserLogin = () => {
         setShowUserLogin(false);
       } else {
         const response = await axios.post(
-          "http://localhost:3000/user/login",
+          backendUrl + '/api/users/login',
           {
             email: formData.email,
             password: formData.password,

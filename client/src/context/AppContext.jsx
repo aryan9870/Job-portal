@@ -7,6 +7,7 @@ export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
+  console.log(backendUrl);
   const [searchFilter, setSearchFilter] = useState({ title: "", location: "" });
   const [isSearched, setIsSearched] = useState(false);
 
@@ -18,7 +19,7 @@ export const AppContextProvider = (props) => {
 
   const checkIsLoggedIn = async () => {
     try {
-      const { data } = await axios.get(backendUrl + '/user/is-auth', {
+      const { data } = await axios.get(backendUrl + '/api/users/is-auth', {
         withCredentials: true,
       });
       console.log(data);

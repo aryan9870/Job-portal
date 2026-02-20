@@ -1,13 +1,13 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, isAuthenticated } from "../controllers/userController.js";
-import isLoggedIn from "../middleware/isLoggedIn.js";
+import { isLoggedIn } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Register
 router.post("/register", registerUser);
 
 // Login 
-router.post("/login", loginUser);
+router.post("/login", loginUser); 
 
 // Logout
 router.get("/logout",isLoggedIn, logoutUser);

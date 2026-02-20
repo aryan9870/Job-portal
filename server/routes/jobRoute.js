@@ -6,7 +6,7 @@ import {
   toggleJobVisibility,
   getRecruiterJobs,
 } from "../controllers/jobController.js";
-import isLoggedIn from "../middleware/isLoggedIn.js";
+import { isLoggedIn, isRecruiter } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -14,16 +14,16 @@ const router = express.Router();
 router.get("/", getJobs);
 
 // post new job
-router.post("/", isLoggedIn, postJob);
+router.post("/", isLoggedIn, isRecruiter, postJob);
 
 // recruiter jobs for manage jobs page
-router.get("/recruiter/jobs", isLoggedIn, getRecruiterJobs);
+router.get("/recruiter", isLoggedIn, isRecruiter, getRecruiterJobs);
 
 // toggle visibility
-router.patch("/:id/toggle-visibility", isLoggedIn, toggleJobVisibility);
+router.patch("/:jobId", isLoggedIn, isRecruiter, toggleJobVisibility);
 
 // get single job
-router.get("/:id", getJobById);
+router.get("/:jobId", getJobById);
 
 
 export default router;

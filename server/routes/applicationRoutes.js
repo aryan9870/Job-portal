@@ -1,5 +1,5 @@
 import express from "express";
-import isLoggedIn from "../middleware/isLoggedIn.js";
+import { isLoggedIn, isApplicant, isRecruiter } from "../middleware/authMiddleware.js";
 import { applyForJob, getUserJobApplications, getRecruiterApplications, changeApplicationStatus } from "../controllers/applicationController.js";
 
 const router = express.Router();
@@ -7,16 +7,16 @@ const router = express.Router();
 
 
 // Get applied data || applicant POV
-router.get("/", isLoggedIn, getUserJobApplications);
+router.get("/", isLoggedIn, isApplicant, getUserJobApplications);
 
 // Get applications data || recruiter POV
-router.get("/recruiter", isLoggedIn, getRecruiterApplications);
+router.get("/recruiter", isLoggedIn, isRecruiter, getRecruiterApplications);
 
 // Apply for a job
-router.post("/:jobId", isLoggedIn, applyForJob);
+router.post("/:jobId", isLoggedIn, isApplicant, applyForJob);
 
 
 // Change application status 
-router.patch("/:applicationId", isLoggedIn, changeApplicationStatus);
+router.patch("/:applicationId", isLoggedIn, isRecruiter, changeApplicationStatus);
 
 export default router;

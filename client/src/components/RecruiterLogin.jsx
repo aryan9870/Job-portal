@@ -42,7 +42,7 @@ const RecruiterLogin = () => {
         setIsTextDataSubmited(true);
       } else if (state === "Signup" && isTextDataSubmited) {
         const response = await axios.post(
-          backendUrl + '/user/register',
+          backendUrl + '/api/users/register',
           {
             name: formData.name,
             email: formData.email,
@@ -58,7 +58,7 @@ const RecruiterLogin = () => {
         setShowRecruiterLogin(false);
       } else {
         const response = await axios.post(
-          backendUrl + '/user/login',
+          backendUrl + '/api/users/login',
           {
             email: formData.email,
             password: formData.password,

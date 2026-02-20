@@ -4,11 +4,6 @@ import Job from "../models/jobModel.js";
 
 // Apply for a job
 export const applyForJob = async (req, res, next) => {
-  // Only normal users can apply
-  if (req.user.role === "recruiter") {
-    return next(new ErrorHandler("Recruiter can not apply for jobs", 403));
-  }
-
   const userId = req.user._id;
   const jobId = req.params.jobId;
 
@@ -66,11 +61,6 @@ export const getUserJobApplications = async (req, res, next) => {
 
 // Get applications for logged-in recruiter
 export const getRecruiterApplications = async (req, res, next) => {
-  // Role check
-  if (req.user.role !== "recruiter") {
-    return next(new ErrorHandler("Access denied. Recruiter only.", 403));
-  }
-
   const recruiterId = req.user._id;
 
   // Find jobs created by this recruiter
@@ -101,11 +91,6 @@ export const getRecruiterApplications = async (req, res, next) => {
 
 // Change application status
 export const changeApplicationStatus = async (req, res, next) => {
-  // Only recruiter allowed
-  if (req.user.role !== "recruiter") {
-    return next(new ErrorHandler("Access denied. Recruiter only.", 403));
-  }
-
   const { applicationId } = req.params;
   const { status } = req.body;
 

@@ -45,9 +45,9 @@ export const getJobs = async (req, res, next) => {
 
 // get job by id
 export const getJobById = async (req, res, next) => {
-  const { id } = req.params;
+  const { jobId } = req.params;
 
-  const job = await Job.findById(id).populate("createdBy", "name image");
+  const job = await Job.findById(jobId).populate("createdBy", "name image");
 
   if (!job) {
     return next(new ErrorHandler("Job not found", 404));
@@ -73,9 +73,9 @@ export const getRecruiterJobs = async (req, res, next) => {
 
 // Toggle visible checkbox
 export const toggleJobVisibility = async (req, res, next) => {
-  const { id } = req.params;
+  const { jobId } = req.params;
 
-  const job = await Job.findById(id);
+  const job = await Job.findById(jobId);
 
   if (!job) {
     return next(new ErrorHandler("Job not found", 404));

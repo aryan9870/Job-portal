@@ -31,9 +31,9 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/user", userRouter);
-app.use("/job", jobRouter);
-app.use("/application", applicationRouter);
+app.use("/api/users", userRouter);
+app.use("/api/jobs", jobRouter);
+app.use("/api/applications", applicationRouter);
 
 
 // Route not found 
