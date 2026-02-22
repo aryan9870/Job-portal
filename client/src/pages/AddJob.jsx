@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect, useRef } from "react";
 import { categories, locations } from "../assets/assets";
 import Quill from "quill";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { AlertContext } from "../context/AlertContext";
 
 const AddJob = () => {
+  const { backendUrl } = useContext(AppContext);
+  const { showAlert } = useContext(AlertContext);
   const [formData, setFormData] = useState({
     title: "",
     location: "Banglore",
@@ -33,7 +38,7 @@ const AddJob = () => {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const description = quillRef.current.root.innerHTML;
@@ -45,7 +50,24 @@ const AddJob = () => {
 
     console.log(finalData);
 
-    // Bad me yaha API call karenge
+    try {
+      const { data } = await axios.post(backendUrl + "/api/jobs", finalData, {
+        withCredentials: true,
+      });
+      if (data.success) {
+        showAlert(data.message, "success");
+        setFormData({
+          title: "",
+          location: "Banglore",
+          category: "Programming",
+          level: "Beginner level",
+          salary: 0,
+        });
+        quillRef.current.root.innerHTML = "";
+      }
+    } catch (error) {
+      showAlert(error.response?.data?.message, "error");
+    }
   };
 
   return (
