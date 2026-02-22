@@ -25,12 +25,20 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/apply-job/:id" element={<Applyjob />} />
-        <Route path="/applications" element={<Applictions />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="add-job" element={<AddJob />} />
-          <Route path="manage-jobs" element={<ManageJobs />} />
-          <Route path="view-applications" element={<ViewApplications />} />
-        </Route>
+        {isLoggedIn && user?.role === "applicant" && (
+          <Route path="/applications" element={<Applictions />} />
+        )}
+
+        {isLoggedIn && user?.role === "recruiter" && (
+          <>
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path="add-job" element={<AddJob />} />
+              <Route path="manage-jobs" element={<ManageJobs />} />
+              <Route path="view-applications" element={<ViewApplications />} />
+            </Route>
+          </>
+        )}
+
         <Route path="*" element={<Home />} />
       </Routes>
     </div>
