@@ -45,7 +45,26 @@ const ManageJobs = () => {
     fetchJobs();
   }, []);
 
-  return (
+  return jobs.length < 1 ? (
+    <div className="flex justify-center items-center container p-4 max-w-5xl">
+      <div className="bg-white rounded-xl max-w-lg w-full">
+        <h1 className="text-xl font-semibold text-gray-800 mb-2">
+          No jobs posted yet
+        </h1>
+
+        <p className="text-gray-500 mb-6">
+          Start hiring by posting your first job.
+        </p>
+
+        <button
+          onClick={() => navigate("/dashboard/add-job")}
+          className="px-4 py-3 mt-4 bg-black text-white rounded"
+        >
+          Add Your First Job
+        </button>
+      </div>
+    </div>
+  ) : (
     <div className="container p-4 max-w-5xl">
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">

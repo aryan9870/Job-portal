@@ -32,6 +32,7 @@ const App = () => {
         {isLoggedIn && user?.role === "recruiter" && (
           <>
             <Route path="/dashboard" element={<Dashboard />}>
+              <Route index element={<ManageJobs />} />
               <Route path="add-job" element={<AddJob />} />
               <Route path="manage-jobs" element={<ManageJobs />} />
               <Route path="view-applications" element={<ViewApplications />} />

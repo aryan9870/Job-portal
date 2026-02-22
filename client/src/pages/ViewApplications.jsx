@@ -3,15 +3,17 @@ import { assets } from "../assets/assets";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import { AlertContext } from "../context/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 const ViewApplications = () => {
   const { backendUrl } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const [applications, setApplications] = useState([]);
+  const navigate = useNavigate();
 
   const fetchApplications = async () => {
     try {
-      const { data } = await axios.get( 
+      const { data } = await axios.get(
         backendUrl + "/api/applications/recruiter",
         { withCredentials: true },
       );
@@ -35,7 +37,7 @@ const ViewApplications = () => {
         fetchApplications();
       }
     } catch (error) {
-      showAlert(error?.responce?.data?.message, "error")
+      showAlert(error?.responce?.data?.message, "error");
     }
   };
 
@@ -43,8 +45,26 @@ const ViewApplications = () => {
     fetchApplications();
   }, []);
 
-  
-  return (
+  return applications.length < 1 ? (
+    <div className="flex justify-center items-center container p-4 max-w-5xl">
+      <div className="bg-white rounded-xl max-w-lg w-full">
+        <h1 className="text-xl font-semibold text-gray-800 mb-2">
+          No applications received yet
+        </h1>
+
+        <p className="text-gray-500 mb-6">
+          Once candidates apply to your jobs, you'll see them here.
+        </p>
+
+        <button
+          onClick={() => navigate("/dashboard/add-job")}
+          className="w-28 py-3 mt-4 bg-black text-white rounded"
+        >
+          Post a Job
+        </button>
+      </div>
+    </div>
+  ) : (
     <div className="container mx-auto p-4">
       <div>
         <table className="w-full max-w-4xl bg-white border border-gray-200">
@@ -81,7 +101,11 @@ const ViewApplications = () => {
                     {application.job.location}
                   </td>
                   <td className="py-2 px-4 border-b border-gray-200">
-                    <span className={`${application.status == "accepted" ? 'bg-green-100' : application.status == "rejected" ? 'bg-red-100' : 'bg-blue-100' } px-2 py-1 rounded`}>{application.status}</span>
+                    <span
+                      className={`${application.status == "accepted" ? "bg-green-100" : application.status == "rejected" ? "bg-red-100" : "bg-blue-100"} px-2 py-1 rounded`}
+                    >
+                      {application.status}
+                    </span>
                   </td>
                   <td className="py-2 px-4 border-b border-gray-200">
                     <a
