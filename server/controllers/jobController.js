@@ -1,3 +1,4 @@
+import Application from "../models/applicationModel.js";
 import Job from "../models/jobModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
@@ -65,9 +66,24 @@ export const getRecruiterJobs = async (req, res, next) => {
   // Recruiter ke saare jobs
   const jobs = await Job.find({ createdBy: recruiterId });
 
+  // number of applicants
+  const jobsWithApplicants = await Promise.all(
+    jobs.map(async (job) => {
+      const applicantsCount = await Application.countDocuments({
+        job: job._id,
+      });
+
+      return {
+        ...job.toObject(),
+        applicantsCount,
+      };
+    })
+  )
+
+
   res.status(200).json({
     success: true,
-    jobs,
+    jobs: jobsWithApplicants,
   });
 };
 
