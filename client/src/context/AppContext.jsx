@@ -17,6 +17,21 @@ export const AppContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  const [jobs, setJobs] = useState([]);
+
+
+  const fetchGlobalJobs = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/jobs", {withCredentials: true});
+      if(data.success) {
+        console.log(data);
+        setJobs(data.jobs);
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  }
+
   const checkIsLoggedIn = async () => {
     try {
       const { data } = await axios.get(backendUrl + '/api/users/is-auth', {
@@ -38,6 +53,7 @@ export const AppContextProvider = (props) => {
   };
 
   useEffect(() => {
+    fetchGlobalJobs();
     checkIsLoggedIn();
   }, []);
 
@@ -56,6 +72,9 @@ export const AppContextProvider = (props) => {
     setUser,
     backendUrl,
     checkIsLoggedIn,
+    jobs,
+    setJobs,
+    fetchGlobalJobs
   };
 
   return (

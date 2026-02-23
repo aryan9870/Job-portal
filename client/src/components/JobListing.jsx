@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import { assets, jobsData, categories, locations } from "../assets/assets";
+import { assets, categories, locations } from "../assets/assets";
 import JobCard from "./JobCard";
 
 const JobListing = () => {
-  const { isSearched, searchFilter, setSearchFilter } = useContext(AppContext);
+  const { isSearched, searchFilter, setSearchFilter, jobs } =
+    useContext(AppContext);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState(jobsData);
-
+  const [filteredJobs, setFilteredJobs] = useState([]);  // remove this - step 1 
+  
   const handleCategoryChange = (category) => {
     setSelectedCategories((prev) => {
       if (prev.includes(category)) {
@@ -30,8 +31,8 @@ const JobListing = () => {
   };
 
   useEffect(() => {
-    
-    let tempJobs = jobsData;
+    setFilteredJobs(jobs);
+    let tempJobs = jobs;
 
     // Title Search Filter
     if (searchFilter.title !== "") {
@@ -64,8 +65,7 @@ const JobListing = () => {
     }
 
     setFilteredJobs(tempJobs);
-
-  }, [searchFilter, selectedCategories, selectedLocations]);
+  }, [searchFilter, selectedCategories, selectedLocations, jobs]);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -203,7 +203,7 @@ const JobListing = () => {
 
           <button
             onClick={() => setCurrentPage((prev) => prev + 1)}
-            disabled={currentPage === Math.ceil(jobsData.length / jobsPerPage)}
+            disabled={currentPage === Math.ceil(jobs.length / jobsPerPage)}
             className="px-4 py-2 border border-gray-300 text-gray-500 rounded disabled:opacity-50"
           >
             <img src={assets.right_arrow_icon} alt="" />

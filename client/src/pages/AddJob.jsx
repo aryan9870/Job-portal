@@ -7,7 +7,7 @@ import { AppContext } from "../context/AppContext";
 import { AlertContext } from "../context/AlertContext";
 
 const AddJob = () => {
-  const { backendUrl } = useContext(AppContext);
+  const { backendUrl, fetchGlobalJobs } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const [formData, setFormData] = useState({
     title: "",
@@ -64,6 +64,7 @@ const AddJob = () => {
           salary: 0,
         });
         quillRef.current.root.innerHTML = "";
+        fetchGlobalJobs();
       }
     } catch (error) {
       showAlert(error.response?.data?.message, "error");

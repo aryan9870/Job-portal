@@ -6,7 +6,7 @@ import moment from "moment";
 import { AlertContext } from "../context/AlertContext";
 
 const ManageJobs = () => {
-  const { backendUrl } = useContext(AppContext);
+  const { backendUrl, fetchGlobalJobs } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ const ManageJobs = () => {
       if (data.success) {
         showAlert(data.message, "success");
         fetchJobs();
+        fetchGlobalJobs();
       }
     } catch (error) {
       showAlert(error?.responce?.data?.message, "error");
