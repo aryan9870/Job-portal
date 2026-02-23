@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { useState } from 'react';
-import { assets, jobsApplied } from '../assets/assets';
+import { assets } from '../assets/assets';
 import Footer from '../components/Footer'
+import axios from 'axios';
+import { AppContext } from '../context/AppContext';
 
 const Applictions = () => {
 
+  const { backendUrl } = useContext(AppContext);
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
+  const [appliedJobs, setAppliedJobs] = useState([])
+
+
+  const fecthJobApplications = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/applications", { withCredentials: true });
+      if(data.success) {
+        console.log(data.applications);
+        setAppliedJobs(data.applications);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fecthJobApplications();
+  }, [])
 
 
   return (
@@ -40,17 +61,17 @@ const Applictions = () => {
               </tr>
             </thead>
             <tbody>
-              {jobsApplied.map((job, index) => {
+              {appliedJobs.map((job, index) => {
                 return <tr key={index}>
                   <td className='py-3 px-4 flex items-centergap-2 border-b border-gray-200'>
-                    <img className='w-8 h-8' src={job.logo} alt="" />
-                    {job.company}
+                    <img className='w-8 h-8' src={job.job.createdBy.image} alt="" />
+                    {job.job.createdBy.name}
                   </td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.title}</td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.location}</td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.date}</td>
+                  <td className='py-2 px-4 border-b border-gray-200'>{job.job.title}</td>
+                  <td className='py-2 px-4 border-b border-gray-200'>{job.job.location}</td>
+                  <td className='py-2 px-4 border-b border-gray-200'>{job.createdAt}</td>
                   <td className='py-2 px-4 border-b border-gray-200'>
-                    <span className={`${job.status == "Interview" ? 'bg-green-100' : job.status == "Rejected" ? 'bg-red-100' : 'bg-blue-100' } px-4 py-1.5 rounded`}>{job.status}</span>
+                    <span className={`${job.status == "accepted" ? 'bg-green-100' : job.status == "rejected" ? 'bg-red-100' : 'bg-blue-100' } px-4 py-1.5 rounded`}>{job.status}</span>
                   </td>
                 </tr>
               })}
