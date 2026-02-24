@@ -2,7 +2,7 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
-import cloudinary from "../config/cloudinary.js";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
@@ -28,15 +28,8 @@ export const registerUser = async (req, res, next) => {
   }
 
   // image upload to coloudianry
-  let imageUrl = "";
-
-  if (req.file) {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "job-portal",
-    });
-
-    imageUrl = result.secure_url;
-  }
+  const result = await uploadToCloudinary(req.file.buffer);
+  const imageUrl = result.secure_url;
 
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
