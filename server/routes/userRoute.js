@@ -1,10 +1,11 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, isAuthenticated } from "../controllers/userController.js";
 import { isLoggedIn } from "../middleware/authMiddleware.js";
+import upload from "../middleware/multer.js";
 const router = express.Router();
 
 // Register
-router.post("/register", registerUser);
+router.post("/register", upload.single("image"), registerUser);
 
 // Login 
 router.post("/login", loginUser); 

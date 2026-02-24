@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
@@ -14,10 +15,27 @@ export const registerUser = async (req, res, next) => {
     );
   }
 
+  if(!req.file) {
+    return next(
+      new ErrorHandler("Profile image required", 400),
+    );
+  }
+
   // Check if user with the same email or username already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     return next(new ErrorHandler("User with this email already exists", 400));
+  }
+
+  // image upload to coloudianry
+  let imageUrl = "";
+
+  if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "job-portal",
+    });
+
+    imageUrl = result.secure_url;
   }
 
   // Hash the password
@@ -29,6 +47,7 @@ export const registerUser = async (req, res, next) => {
     email,
     password: hashedPassword,
     role,
+    image: imageUrl,
   });
 
   await newUser.save();
@@ -54,6 +73,7 @@ export const registerUser = async (req, res, next) => {
         id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        image: imageUrl,
       },
     });
 };
@@ -75,7 +95,9 @@ export const loginUser = async (req, res, next) => {
 
   // Role validation
   if (user.role !== role) {
-    return next(new ErrorHandler("Please login using the correct account type", 400));
+    return next(
+      new ErrorHandler("Please login using the correct account type", 400),
+    );
   }
 
   // Compare provided password with the hashed password in the database
@@ -128,5 +150,5 @@ export const isAuthenticated = async (req, res, next) => {
     success: true,
     message: "You are allredy logged in",
     user: req.user,
-  })
-} 
+  });
+};

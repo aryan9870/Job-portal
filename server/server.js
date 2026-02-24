@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import ErrorHandler from "./utils/errorHandler.js";
@@ -7,9 +6,6 @@ import userRouter from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
 import jobRouter from "./routes/jobRoute.js"
 import applicationRouter from "./routes/applicationRoutes.js"
-
-dotenv.config();
-
 connectDB();
 
 const app = express();
