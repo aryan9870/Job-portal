@@ -7,7 +7,8 @@ import { AlertContext } from "../context/AlertContext";
 import { useNavigate } from "react-router-dom";
 
 const RecruiterLogin = () => {
-  const { setShowRecruiterLogin, setIsLoggedIn, backendUrl, checkIsLoggedIn } = useContext(AppContext);
+  const { setShowRecruiterLogin, setIsLoggedIn, backendUrl, checkIsLoggedIn } =
+    useContext(AppContext);
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
   const { showAlert } = useContext(AlertContext);
@@ -17,7 +18,7 @@ const RecruiterLogin = () => {
     name: "",
     email: "",
     password: "",
-    image: null,
+    image: "",
   });
 
   const handleChange = (e) => {
@@ -43,26 +44,27 @@ const RecruiterLogin = () => {
       if (state === "Signup" && !isTextDataSubmited) {
         setIsTextDataSubmited(true);
       } else if (state === "Signup" && isTextDataSubmited) {
+        const data = new FormData();
+
+        data.append("name", formData.name);
+        data.append("email", formData.email);
+        data.append("password", formData.password);
+        data.append("role", "recruiter");
+        data.append("image", formData.image); // file
+
         const response = await axios.post(
-          backendUrl + '/api/users/register',
-          {
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            role: "recruiter",
-          },
-          {
-            withCredentials: true,
-          },
+          backendUrl + "/api/users/register",
+          data,
+          { withCredentials: true },
         );
         setIsLoggedIn(true);
         showAlert("Welcome! Account created succesfully", "success");
         setShowRecruiterLogin(false);
         navigate("/dashboard");
-        checkIsLoggedIn()
+        checkIsLoggedIn();
       } else {
         const response = await axios.post(
-          backendUrl + '/api/users/login',
+          backendUrl + "/api/users/login",
           {
             email: formData.email,
             password: formData.password,
@@ -76,7 +78,7 @@ const RecruiterLogin = () => {
         showAlert("Login Successful", "success");
         setShowRecruiterLogin(false);
         navigate("/dashboard");
-        checkIsLoggedIn()
+        checkIsLoggedIn();
       }
     } catch (error) {
       showAlert(error.response?.data?.message, "error");

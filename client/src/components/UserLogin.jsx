@@ -41,17 +41,18 @@ const UserLogin = () => {
       if (state === "Signup" && !isTextDataSubmited) {
         setIsTextDataSubmited(true);
       } else if (state === "Signup" && isTextDataSubmited) {
+        const data = new FormData();
+
+        data.append("name", formData.name);
+        data.append("email", formData.email);
+        data.append("password", formData.password);
+        data.append("role", "applicant");
+        data.append("image", formData.image); // file
+
         const response = await axios.post(
-          backendUrl + '/api/users/register',
-          {
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            role: "applicant",
-          },
-          {
-            withCredentials: true,
-          },
+          backendUrl + "/api/users/register",
+          data,
+          { withCredentials: true },
         );
         setIsLoggedIn(true);
         showAlert("Welcome! Account created succesfully", "success");
@@ -90,7 +91,7 @@ const UserLogin = () => {
 
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="relative bg-white p-10 rounded-xl text-slate-500">
+      <form  onSubmit={handleSubmit} className="relative bg-white p-10 rounded-xl text-slate-500">
         <h1 className="text-center text-2xl text-neutral-700 font-medium">
           User {state}
         </h1>

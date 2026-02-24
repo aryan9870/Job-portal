@@ -48,7 +48,7 @@ export const getUserJobApplications = async (req, res, next) => {
       select: "title location createdBy",
       populate: {
         path: "createdBy",
-        select: "name email",
+        select: "name email image",
       },
     })
     .select("status createdAt job");
@@ -80,7 +80,7 @@ export const getRecruiterApplications = async (req, res, next) => {
 
   // Find applications for those jobs
   const applications = await Application.find({ job: { $in: jobIds } })
-    .populate("applicant", "name email")
+    .populate("applicant", "name email image")
     .populate("job", "title location")
 
   res.status(200).json({

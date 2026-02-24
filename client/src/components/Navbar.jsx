@@ -71,8 +71,8 @@ const Navbar = () => {
                 </button>
               )}
               <div className="relative group">
-                <button className="bg-purple-900 cursor-pointer text-white flex items-center justify-center w-10 h-10 rounded-full">
-                  {user?.name?.slice(0, 1).toUpperCase()}
+                <button className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full">
+                  <img className="w-full h-full rounded-full" src={user?.image || assets.upload_area } alt="" />
                 </button>
                 <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12 ">
                   <ul className="list-none m-0 p-2 bg-white rounded-md border border-gray-300 text-sm">

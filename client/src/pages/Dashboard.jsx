@@ -7,12 +7,7 @@ import { AlertContext } from "../context/AlertContext";
 import axios from "axios";
 
 const Dashboard = () => {
-  const {
-    setIsLoggedIn,
-    user,
-    setUser,
-    backendUrl,
-  } = useContext(AppContext);
+  const { setIsLoggedIn, user, setUser, backendUrl } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
 
@@ -56,13 +51,18 @@ const Dashboard = () => {
             <p className="">Welcome, {user?.name}</p>
             <div className="relative group">
               <img
-                className="w-8 rounded-full"
-                src={assets.company_icon}
+                className="w-10 h-10 rounded-full"
+                src={user?.image || assets.upload_area}
                 alt=""
               />
               <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12 ">
                 <ul className="list-none m-0 p-2 bg-white rounded-md border border-gray-300 text-sm">
-                  <li onClick={logout} className="py-1 px-2 cursor-pointer pr-10">Logout</li>
+                  <li
+                    onClick={logout}
+                    className="py-1 px-2 cursor-pointer pr-10"
+                  >
+                    Logout
+                  </li>
                 </ul>
               </div>
             </div>

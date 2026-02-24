@@ -11,7 +11,7 @@ const Applictions = () => {
   const { backendUrl } = useContext(AppContext);
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
-  const [appliedJobs, setAppliedJobs] = useState([])
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
 
   const fecthJobApplications = async () => {
@@ -63,7 +63,7 @@ const Applictions = () => {
             <tbody>
               {appliedJobs.map((job, index) => {
                 return <tr key={index}>
-                  <td className='py-3 px-4 flex items-centergap-2 border-b border-gray-200'>
+                  <td className='py-3 px-4 flex items-center gap-2 border-b border-gray-200'>
                     <img className='w-8 h-8' src={job.job.createdBy.image} alt="" />
                     {job.job.createdBy.name}
                   </td>
