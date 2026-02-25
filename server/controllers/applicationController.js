@@ -26,7 +26,7 @@ export const applyForJob = async (req, res, next) => {
 
   // validate resume
   if(!req.user.resume) {
-    return next(new ErrorHandler("Please upload your resume", 400));
+    return next(new ErrorHandler("Please upload your resume befor applying for a job", 422));
   }
 
   // Create application

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 import moment from "moment";
@@ -16,6 +16,7 @@ const Applyjob = () => {
   const { jobs, backendUrl } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const [jobData, setJobData] = useState(null);
+  const navigate = useNavigate();
 
   const fetchJob = async () => {
     const data = await jobs.filter((job) => job._id == id);
@@ -54,6 +55,9 @@ const Applyjob = () => {
       }
     } catch (error) {
       showAlert(error?.response?.data?.message, "error");
+      if(error.response.status === 422) {
+        navigate("/applications");
+      }
     }
   };
 
