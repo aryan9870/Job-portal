@@ -47,7 +47,7 @@ const ManageJobs = () => {
   }, []);
 
   return jobs.length < 1 ? (
-    <div className="flex justify-center items-center container p-4 max-w-5xl">
+    <div className="flex justify-center items-center container p-4 max-w-5xl ">
       <div className="bg-white rounded-xl max-w-lg w-full">
         <h1 className="text-xl font-semibold text-gray-800 mb-2">
           No jobs posted yet
@@ -66,27 +66,27 @@ const ManageJobs = () => {
       </div>
     </div>
   ) : (
-    <div className="container p-4 max-w-5xl">
+    <div className="container p-4 max-w-5xl max-sm:text-sm">
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b text-left border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-left border-gray-200">
                 #
               </th>
-              <th className="py-2 px-4 border-b text-left border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-left border-gray-200">
                 Job Title
               </th>
-              <th className="py-2 px-4 border-b text-left border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-left border-gray-200 max-sm:hidden">
                 Date
               </th>
-              <th className="py-2 px-4 border-b text-left border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-left border-gray-200 max-sm:hidden">
                 Location
               </th>
-              <th className="py-2 px-4 border-b text-center border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-center border-gray-200">
                 Applicants
               </th>
-              <th className="py-2 px-4 border-b text-left border-gray-200">
+              <th className="py-2 px-4 max-sm:px-2 border-b text-left border-gray-200">
                 Visible
               </th>
             </tr>
@@ -95,22 +95,22 @@ const ManageJobs = () => {
             {jobs.map((job, index) => {
               return (
                 <tr key={job._id} className="text-gray-700">
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     {index + 1}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     {job.title}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
                     {moment(job.date).format("DD MMM YYYY")}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
                     {job.location}
                   </td>
-                  <td className="py-2 px-4 border-b text-center border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b text-center border-gray-200">
                     {job.applicantsCount}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <input
                       checked={job.visible}
                       onChange={() => toggleVisibility(job._id)}

@@ -67,56 +67,56 @@ const ViewApplications = () => {
   ) : (
     <div className="container mx-auto p-4">
       <div>
-        <table className="w-full max-w-4xl bg-white border border-gray-200">
+        <table className="w-full max-w-4xl bg-white border border-gray-200 max-sm:text-sm">
           <thead>
             <tr className="border-b border-gray-200">
-              <th>#</th>
-              <th className="py-2 px-4 text-left">User name</th>
-              <th className="py-2 px-4 text-left">Job Title</th>
-              <th className="py-2 px-4 text-left">Location</th>
-              <th className="py-2 px-4 text-left">Status</th>
-              <th className="py-2 px-4 text-left">Resume</th>
-              <th className="py-2 px-4 text-left">Action</th>
+              <th className="">#</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left">User name</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">Job Title</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">Location</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left">Status</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left">Resume</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
             {applications.map((application, index) => {
               return (
                 <tr key={index} className="text-gray-700">
-                  <td className="py-2 px-4 border-b text-center border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b text-center border-gray-200">
                     {index + 1}
                   </td>
-                  <td className="py-2 px-4 border-b flex justify-center items-center border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b flex justify-center items-center border-gray-200">
                     <img
-                      className="w-8 h-8 rounded-full mr-3"
+                      className="w-8 h-8 rounded-full mr-3 max-sm:hidden"
                       src={application.applicant.image}
                       alt=""
                     />
                     <span>{application.applicant.name}</span>
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
                     {application.job.title}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
                     {application.job.location}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <span
-                      className={`${application.status == "accepted" ? "bg-green-100" : application.status == "rejected" ? "bg-red-100" : "bg-blue-100"} px-2 py-1 rounded`}
+                      className={`${application.status == "accepted" ? "bg-green-100" : application.status == "rejected" ? "bg-red-100" : "bg-blue-100"} px-2 py-1 max-sm:p-1 rounded`}
                     >
                       {application.status}
                     </span>
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <a
                       href={application.resume}
                       target="_blank"
-                      className="bg-blue-50 text-blue-400 py-1 px-2 rounded inline-flex gap-2 items-center"
+                      className="bg-blue-50 text-blue-400 py-1 px-2 max-sm:p-1 rounded inline-flex gap-2 items-center"
                     >
-                      Resume <img src={assets.resume_download_icon} alt="" />
+                      Resume <img className="max-sm:hidden" src={assets.resume_download_icon} alt="" />
                     </a>
                   </td>
-                  <td className="py-2 px-4 border-b relative border-gray-200">
+                  <td className="py-2 px-4 max-sm:px-2 border-b relative border-gray-200">
                     <div className="relative inline-block text-left group">
                       <button className="text-gray-500 action-button text-3xl">
                         ...
