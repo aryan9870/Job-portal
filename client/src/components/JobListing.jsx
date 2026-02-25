@@ -79,9 +79,9 @@ const JobListing = () => {
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
   return (
-    <div className="container px-10 mx-auto flex py-8">
+    <div className="container xl:px-10 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
       {/* Side bar  */}
-      <div className="w-1/4 bg-white px-4">
+      <div className="w-full lg:w-1/4 bg-white px-4">
         {/* Search Filter from hero component  */}
         {isSearched &&
           (searchFilter.title != "" || searchFilter.location != "") && (
@@ -168,12 +168,12 @@ const JobListing = () => {
       </div>
 
       {/* Job listings  */}
-      <div className="w-3/4 text-gray-800">
+      <div className="w-full lg:w-3/4 text-gray-800 max-lg:px-4">
         <h3 className="font-medium text-3xl py-2" id="job-list">
           Latest jobs
         </h3>
         <p className="mb-8">Get your desired job from top companies</p>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {currentJobs.map((job, idx) => {
             return <JobCard job={job} key={idx} />;
           })}

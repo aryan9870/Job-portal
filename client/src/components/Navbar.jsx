@@ -45,14 +45,14 @@ const Navbar = () => {
 
   return (
     <div className="shadow py-4">
-      <div className="container px-10 mx-auto flex justify-between items-center">
+      <div className="container xl:px-10 px-4 mx-auto flex justify-between items-center">
         <img
           onClick={() => navigate("/")}
-          className="cursor-pointer"
+          className="cursor-pointer h-6 xl:h-10"
           src={assets.logo}
           alt=""
         />
-        <div className="flex gap-4">
+        <div className="flex gap-4 max-sm:text-xs">
           {isLoggedIn ? (
             <>
               {user?.role == "applicant" ? (
@@ -74,7 +74,7 @@ const Navbar = () => {
                 <button className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full">
                   <img className="w-full h-full rounded-full" src={user?.image || assets.upload_area } alt="" />
                 </button>
-                <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12 ">
+                <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
                   <ul className="list-none m-0 p-2 bg-white rounded-md border border-gray-300 text-sm">
                     <li
                       onClick={logout}
@@ -96,7 +96,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => setShowUserLogin(true)}
-                className="bg-blue-600 cursor-pointer text-white px-9 py-2 rounded-full"
+                className="bg-blue-600 cursor-pointer text-white px-4 sm:px-9 py-2 rounded-full"
               >
                 Login
               </button>

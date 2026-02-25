@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 import { AlertContext } from '../context/AlertContext';
+import moment from 'moment';
 
 const Applictions = () => {
 
@@ -52,7 +53,7 @@ const Applictions = () => {
   return (
     <>
         <Navbar />
-        <div className='container min-h-[65vh] px-10 mx-auto my-10'>
+        <div className='container min-h-[65vh] px-4 xl:px-10 mx-auto my-10'>
           <h2 className='text-xl font-semibold'>Your Resume</h2>
           <div className='flex gap-2 mb-6 mt-3'>
             { isEdit ? <>
@@ -73,8 +74,8 @@ const Applictions = () => {
               <tr>
                 <th className='py-3 px-4 border-b text-left border-gray-200'>Company</th>
                 <th className='py-3 px-4 border-b text-left border-gray-200'>Job Title</th>
-                <th className='py-3 px-4 border-b text-left border-gray-200'>Location</th>
-                <th className='py-3 px-4 border-b text-left border-gray-200'>Date</th>
+                <th className='py-3 px-4 border-b text-left border-gray-200 max-sm:hidden'>Location</th>
+                <th className='py-3 px-4 border-b text-left border-gray-200 max-sm:hidden'>Date</th>
                 <th className='py-3 px-4 border-b text-left border-gray-200'>Status</th>
               </tr>
             </thead>
@@ -85,9 +86,9 @@ const Applictions = () => {
                     <img className='w-8 h-8' src={job.job.createdBy.image} alt="" />
                     {job.job.createdBy.name}
                   </td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.job.title}</td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.job.location}</td>
-                  <td className='py-2 px-4 border-b border-gray-200'>{job.createdAt}</td>
+                  <td className='py-2 px-4 border-b border-gray-200 sm:text-lg text-xs'>{job.job.title}</td>
+                  <td className='py-2 px-4 border-b border-gray-200 max-sm:hidden'>{job.job.location}</td>
+                  <td className='py-2 px-4 border-b border-gray-200 max-sm:hidden'>{moment(job.createdAt).format('ll')}</td>
                   <td className='py-2 px-4 border-b border-gray-200'>
                     <span className={`${job.status == "accepted" ? 'bg-green-100' : job.status == "rejected" ? 'bg-red-100' : 'bg-blue-100' } px-4 py-1.5 rounded`}>{job.status}</span>
                   </td>

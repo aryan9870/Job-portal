@@ -8,13 +8,13 @@ const Alert = () => {
 
   return (
     <div
-      className={`fixed top-5 left-1/2 -translate-x-1/2 z-50  w-1/2
-            border px-10 py-5 rounded
+      className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 w-4/5 xl:w-1/2
+            border xl:px-10 xl:py-5 px-5 py-2.5 rounded
   ${alert.type === "success" ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"}`}
       role="alert"
     >
-      <strong className="font-bold">{alert.type}! </strong>
-      <span className="block sm:inline">{alert.message}</span>
+      <strong className="font-bold text-sm lg:text-xl">{alert.type}! </strong>
+      <span className="block text-xs lg:text-lg sm:inline">{alert.message}</span>
       <span className="absolute top-0 bottom-0 right-0 px-10 py-5">
         <svg
         onClick={() => setAlert({ message: "", type: "" })}
