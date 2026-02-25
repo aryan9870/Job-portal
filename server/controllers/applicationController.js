@@ -24,11 +24,17 @@ export const applyForJob = async (req, res, next) => {
     return next(new ErrorHandler("You have already applied for this job", 400));
   }
 
+  // validate resume
+  if(!req.user.resume) {
+    return next(new ErrorHandler("Please upload your resume", 400));
+  }
+
   // Create application
   const application = await Application.create({
     job: jobId,
     applicant: userId,
     status: "pending",
+    resume: req.user.resume,
   });
 
   res.status(201).json({

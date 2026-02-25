@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
     enum: ["recruiter", "applicant"],
     required: true
   },
+  resume: {
+      type: String, // resume URL
+  },
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

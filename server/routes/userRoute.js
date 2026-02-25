@@ -1,6 +1,6 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, isAuthenticated } from "../controllers/userController.js";
-import { isLoggedIn } from "../middleware/authMiddleware.js";
+import { registerUser, loginUser, logoutUser, isAuthenticated, uploadUserResume } from "../controllers/userController.js";
+import { isApplicant, isLoggedIn } from "../middleware/authMiddleware.js";
 import upload from "../middleware/multer.js";
 const router = express.Router();
 
@@ -14,5 +14,7 @@ router.post("/login", loginUser);
 router.get("/logout",isLoggedIn, logoutUser);
 
 router.get("/is-auth", isLoggedIn, isAuthenticated);
+
+router.post("/resume", isLoggedIn, isApplicant, upload.single("resume"), uploadUserResume);
 
 export default router;

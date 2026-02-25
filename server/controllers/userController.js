@@ -15,10 +15,8 @@ export const registerUser = async (req, res, next) => {
     );
   }
 
-  if(!req.file) {
-    return next(
-      new ErrorHandler("Profile image required", 400),
-    );
+  if (!req.file) {
+    return next(new ErrorHandler("Profile image required", 400));
   }
 
   // Check if user with the same email or username already exists
@@ -143,5 +141,30 @@ export const isAuthenticated = async (req, res, next) => {
     success: true,
     message: "You are allredy logged in",
     user: req.user,
+  });
+};
+
+export const uploadUserResume = async (req, res, next) => {
+  const userId = req.user._id;
+
+  if (!req.file) {
+    return next(new ErrorHandler("Please upload your resume", 400));
+  }
+
+  const user = await User.findById(userId);
+
+  // Upload resume to Cloudinary
+  const result = await uploadToCloudinary(req.file.buffer);
+  const resumeUrl = result.secure_url;
+
+  // Save new resume URL
+  user.resume = resumeUrl;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Resume uploaded successfully",
+    resume: resumeUrl,
   });
 };
