@@ -8,7 +8,7 @@ import { AppContext } from "./context/AppContext";
 import UserLogin from "./components/UserLogin";
 import Dashboard from "./pages/Dashboard";
 import AddJob from "./pages/AddJob";
-import ManageJobs from "./pages/manageJobs";
+import ManageJobs from "./pages/ManageJobs";
 import ViewApplications from "./pages/ViewApplications";
 import "quill/dist/quill.snow.css";
 import Alert from "./components/Alert";
