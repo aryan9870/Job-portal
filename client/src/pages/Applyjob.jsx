@@ -36,7 +36,7 @@ const Applyjob = () => {
     ? jobs
         .filter(
           (job) =>
-            job.createdBy.id === jobData.createdBy.id &&
+            job.createdBy._id === jobData.createdBy._id &&
             job._id !== jobData._id,
         )
         .slice(0, 3)
