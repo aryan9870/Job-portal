@@ -15,6 +15,7 @@ const Applictions = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const fecthJobApplications = async () => {
@@ -37,6 +38,7 @@ const Applictions = () => {
 
   const saveResume = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log(resume);
     const formData = new FormData();
     formData.append("resume", resume);
@@ -52,6 +54,8 @@ const Applictions = () => {
       }
     } catch (error) {
       showAlert(error?.responce?.data?.message, "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,14 +67,15 @@ const Applictions = () => {
         <div className="flex gap-2 mb-6 mt-3">
           {isEdit ? (
             <>
-              <label className="flex items-center" htmlFor="resumeUpload">
+              <label className="flex items-center cursor-pointer" htmlFor="resumeUpload">
                 <p className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg mr-2">
                   Select Resume
                 </p>
                 <input
                   onChange={(e) => setResume(e.target.files[0])}
                   type="file"
-                  name=""
+                  accept=".pdf,application/pdf"
+                  name="resume"
                   id="resumeUpload"
                   hidden
                 />
@@ -78,22 +83,23 @@ const Applictions = () => {
               </label>
               <button
                 onClick={saveResume}
-                className="bg-green-100 border border-green-400 rounded-lg px-4 py-2"
+                className="bg-green-100 border border-green-400 rounded-lg px-4 py-2 cursor-pointer"
               >
-                Save
+                {loading ? <i class="fa-solid fa-spinner fa-spin"></i> : "Save"}
               </button>
             </>
           ) : (
             <div className="flex gap-2">
               <a
-                className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg "
-                href=""
+                className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg cursor-pointer"
+                href={resume ? URL.createObjectURL(resume) : "#"}
+                download={resume ? resume.name : "resume.pdf"}
               >
                 Resume
               </a>
               <button
                 onClick={() => setIsEdit(true)}
-                className="text-gray-500 border border-gray-200 rounded-lg px-4 py-2"
+                className="text-gray-500 border border-gray-200 rounded-lg px-4 py-2 cursor-pointer"
               >
                 Edit
               </button>
