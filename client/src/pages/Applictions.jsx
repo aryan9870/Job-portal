@@ -67,9 +67,12 @@ const Applictions = () => {
         <div className="flex gap-2 mb-6 mt-3">
           {isEdit ? (
             <>
-              <label className="flex items-center cursor-pointer" htmlFor="resumeUpload">
+              <label
+                className="flex items-center cursor-pointer"
+                htmlFor="resumeUpload"
+              >
                 <p className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg mr-2">
-                  Select Resume
+                  {resume ? resume.name : "Select Resume"}
                 </p>
                 <input
                   onChange={(e) => setResume(e.target.files[0])}
@@ -90,25 +93,29 @@ const Applictions = () => {
             </>
           ) : (
             <div className="flex gap-2">
-              <a
-                className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg cursor-pointer"
-                href={resume ? URL.createObjectURL(resume) : "#"}
-                download={resume ? resume.name : "resume.pdf"}
-              >
-                Resume
-              </a>
+              {resume ? (
+                <a
+                  href={URL.createObjectURL(resume)}
+                  download={resume.name || "resume.pdf"}
+                  className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg cursor-pointer"
+                >
+                  Download
+                </a>
+              ) : null}
               <button
                 onClick={() => setIsEdit(true)}
                 className="text-gray-500 border border-gray-200 rounded-lg px-4 py-2 cursor-pointer"
               >
-                Edit
+                Upload
               </button>
             </div>
           )}
         </div>
         {appliedJobs.length < 1 ? (
           <div className="container min-h-[50vh] flex flex-col items-center justify-center text-center mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-3"><i class="fa-solid fa-briefcase"></i> No Applications Yet</h2>
+            <h2 className="text-3xl font-bold mb-3">
+              <i class="fa-solid fa-briefcase"></i> No Applications Yet
+            </h2>
 
             <p className="text-gray-500 mb-6">
               You haven't applied to any jobs yet. Start exploring and apply
@@ -116,11 +123,11 @@ const Applictions = () => {
             </p>
 
             <button
-          onClick={() => navigate("/")}
-          className="px-4 py-3 mt-4 bg-black text-white rounded"
-        >
-          Browse Jobs
-        </button>
+              onClick={() => navigate("/")}
+              className="px-4 py-3 mt-4 bg-black text-white rounded"
+            >
+              Browse Jobs
+            </button>
           </div>
         ) : (
           <div>

@@ -13,7 +13,7 @@ import { AlertContext } from "../context/AlertContext";
 const Applyjob = () => {
   const { id } = useParams();
 
-  const { jobs, backendUrl } = useContext(AppContext);
+  const { jobs, backendUrl, setShowUserLogin } = useContext(AppContext);
   const { showAlert } = useContext(AlertContext);
   const [jobData, setJobData] = useState(null);
   const navigate = useNavigate();
@@ -57,6 +57,9 @@ const Applyjob = () => {
       showAlert(error?.response?.data?.message, "error");
       if(error.response.status === 422) {
         navigate("/applications");
+      }
+      if(error.response.status === 401) {
+        setShowUserLogin(true);
       }
     }
   };

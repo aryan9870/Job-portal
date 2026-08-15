@@ -12,6 +12,7 @@ const RecruiterLogin = () => {
   const [state, setState] = useState("Login");
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
   const { showAlert } = useContext(AlertContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -39,6 +40,7 @@ const RecruiterLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       if (state === "Signup" && !isTextDataSubmited) {
@@ -82,6 +84,8 @@ const RecruiterLogin = () => {
       }
     } catch (error) {
       showAlert(error.response?.data?.message, "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -181,7 +185,7 @@ const RecruiterLogin = () => {
           type="submit"
           className="bg-blue-600 w-full text-white py-2  rounded-full mt-4"
         >
-          {state === "Login"
+            {loading ? <i class="fa-solid fa-spinner fa-spin"></i> : state === "Login"
             ? "login"
             : isTextDataSubmited
               ? "create account"

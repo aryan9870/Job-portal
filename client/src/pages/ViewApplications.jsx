@@ -72,8 +72,12 @@ const ViewApplications = () => {
             <tr className="border-b border-gray-200">
               <th className="">#</th>
               <th className="py-2 px-4 max-sm:px-2 text-left">User name</th>
-              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">Job Title</th>
-              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">Location</th>
+              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">
+                Job Title
+              </th>
+              <th className="py-2 px-4 max-sm:px-2 text-left max-sm:hidden">
+                Location
+              </th>
               <th className="py-2 px-4 max-sm:px-2 text-left">Status</th>
               <th className="py-2 px-4 max-sm:px-2 text-left">Resume</th>
               <th className="py-2 px-4 max-sm:px-2 text-left">Action</th>
@@ -89,7 +93,7 @@ const ViewApplications = () => {
                   <td className="py-2 px-4 max-sm:px-2 border-b flex justify-center items-center border-gray-200">
                     <img
                       className="w-8 h-8 rounded-full mr-3 max-sm:hidden"
-                      src={application.applicant.image}
+                      src={application.applicant.image || assets.upload_area}
                       alt=""
                     />
                     <span>{application.applicant.name}</span>
@@ -109,11 +113,18 @@ const ViewApplications = () => {
                   </td>
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <a
-                      href={application.resume}
-                      target="_blank"
+                      href={application.resume.replace(
+                        "/image/upload/",
+                        "/image/upload/fl_attachment/",
+                      )}
                       className="bg-blue-50 text-blue-400 py-1 px-2 max-sm:p-1 rounded inline-flex gap-2 items-center"
                     >
-                      Resume <img className="max-sm:hidden" src={assets.resume_download_icon} alt="" />
+                      Resume
+                      <img
+                        className="max-sm:hidden"
+                        src={assets.resume_download_icon}
+                        alt=""
+                      />
                     </a>
                   </td>
                   <td className="py-2 px-4 max-sm:px-2 border-b relative border-gray-200">
