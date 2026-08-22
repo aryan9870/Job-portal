@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
 import jobRouter from "./routes/jobRoute.js";
 import applicationRouter from "./routes/applicationRoutes.js";
+import pgdb from "./config/pgdb.js";
 connectDB();
 
 const app = express();

@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
+import { findUserByEmail, createUser } from "../models/pgUserModel.js";
+
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
   const { name, email, password, role } = req.body;
@@ -20,7 +22,7 @@ export const registerUser = async (req, res, next) => {
   }
 
   // Check if user with the same email or username already exists
-  const existingUser = await User.findOne({ email });
+  const existingUser = await findUserByEmail(email);
   if (existingUser) {
     return next(new ErrorHandler("User with this email already exists", 400));
   }
@@ -33,7 +35,7 @@ export const registerUser = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // Create a new user
-  const newUser = new User({
+  const newUser = await createUser({
     name,
     email,
     password: hashedPassword,
@@ -41,10 +43,8 @@ export const registerUser = async (req, res, next) => {
     image: imageUrl,
   });
 
-  await newUser.save();
-
   // Generate JWT token
-  const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
@@ -61,11 +61,11 @@ export const registerUser = async (req, res, next) => {
       success: true,
       message: "User registered successfully",
       user: {
-        id: newUser._id,
-        username: newUser.username,
+        id: newUser.id,
+        name: newUser.name,
         email: newUser.email,
-        image: imageUrl,
-      },
+        image: newUser.image,
+      }
     });
 };
 
