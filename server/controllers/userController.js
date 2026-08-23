@@ -1,10 +1,9 @@
-import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
-import { findUserByEmail, createUser } from "../models/pgUserModel.js";
+import { findUserByEmail, createUser, updateUserResume } from "../models/pgUserModel.js";
 
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
@@ -79,7 +78,7 @@ export const loginUser = async (req, res, next) => {
   }
 
   // Check if user with the provided email exists
-  const user = await User.findOne({ email });
+  const user = await findUserByEmail(email);
   if (!user) {
     return next(new ErrorHandler("Invalid email or password", 400));
   }
@@ -99,7 +98,7 @@ export const loginUser = async (req, res, next) => {
   }
 
   // Generate JWT token
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
@@ -116,10 +115,10 @@ export const loginUser = async (req, res, next) => {
       success: true,
       message: "User logged in successfully",
       user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-      },
+          id: user.id,
+          name: user.name,
+          email: user.email,
+      }
     });
 };
 
@@ -151,20 +150,17 @@ export const uploadUserResume = async (req, res, next) => {
     return next(new ErrorHandler("Please upload your resume", 400));
   }
 
-  const user = await User.findById(userId);
 
   // Upload resume to Cloudinary
   const result = await uploadToCloudinary(req.file.buffer);
   const resumeUrl = result.secure_url;
 
-  // Save new resume URL
-  user.resume = resumeUrl;
-
-  await user.save();
+  // Update PostgreSQL user
+  const updatedUser = await updateUserResume(userId, resumeUrl);
 
   res.status(200).json({
     success: true,
     message: "Resume uploaded successfully",
-    resume: resumeUrl,
+    resume: updatedUser.resume,
   });
 };

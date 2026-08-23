@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
-import User from "../models/userModel.js";
+
+import { findUserById } from "../models/pgUserModel.js";
 
 // Check if logged in
 export const isLoggedIn = async (req, res, next) => {
@@ -13,7 +14,7 @@ export const isLoggedIn = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await findUserById(decoded.id);
 
     if (!user) {
       return next(new ErrorHandler("User not found", 401));
