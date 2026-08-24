@@ -2,6 +2,14 @@ import Application from "../models/applicationModel.js";
 import Job from "../models/jobModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
+import {
+  createJobDB,
+  getAllJobsDB,
+  getJobByIdDB,
+  getRecruiterJobsDB,
+  toggleJobVisibilityDB,
+} from "../models/pgJobModel.js";
+
 // Post a new job
 export const postJob = async (req, res, next) => {
   const { title, location, level, description, salary, category, visible } =
@@ -13,15 +21,15 @@ export const postJob = async (req, res, next) => {
   }
 
   // Create job
-  const job = await Job.create({
+  const job = await createJobDB({
     title,
     location,
     level,
     description,
     salary,
     category,
-    visible: visible ?? true, // default true if not provided
-    createdBy: req.user._id, // auth middleware sets req.user
+    visible: visible ?? true,
+    createdBy: req.user.id,
   });
 
   res.status(201).json({
@@ -33,10 +41,7 @@ export const postJob = async (req, res, next) => {
 
 // get all jobs
 export const getJobs = async (req, res, next) => {
-  const jobs = await Job.find({ visible: true }).populate(
-    "createdBy",
-    "name image",
-  );
+  const jobs = await getAllJobsDB();
 
   res.status(200).json({
     success: true,
@@ -48,7 +53,7 @@ export const getJobs = async (req, res, next) => {
 export const getJobById = async (req, res, next) => {
   const { jobId } = req.params;
 
-  const job = await Job.findById(jobId).populate("createdBy", "name image");
+  const job = await getJobByIdDB(jobId);
 
   if (!job) {
     return next(new ErrorHandler("Job not found", 404));
@@ -61,29 +66,13 @@ export const getJobById = async (req, res, next) => {
 };
 
 export const getRecruiterJobs = async (req, res, next) => {
-  const recruiterId = req.user._id;
+  const recruiterId = req.user.id;
 
-  // Recruiter ke saare jobs
-  const jobs = await Job.find({ createdBy: recruiterId });
-
-  // number of applicants
-  const jobsWithApplicants = await Promise.all(
-    jobs.map(async (job) => {
-      const applicantsCount = await Application.countDocuments({
-        job: job._id,
-      });
-
-      return {
-        ...job.toObject(),
-        applicantsCount,
-      };
-    })
-  )
-
+  const jobs = await getRecruiterJobsDB(recruiterId);
 
   res.status(200).json({
     success: true,
-    jobs: jobsWithApplicants,
+    jobs,
   });
 };
 
@@ -91,20 +80,16 @@ export const getRecruiterJobs = async (req, res, next) => {
 export const toggleJobVisibility = async (req, res, next) => {
   const { jobId } = req.params;
 
-  const job = await Job.findById(jobId);
+  const job = await toggleJobVisibilityDB(jobId, req.user.id);
 
   if (!job) {
-    return next(new ErrorHandler("Job not found", 404));
+    return next(
+      new ErrorHandler(
+        "Job not found or you are not authorized to modify this job",
+        403,
+      ),
+    );
   }
-
-  if (job.createdBy.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler("Not authorized to modify this job", 403));
-  }
-
-  // 🔄 Toggle visibility
-  job.visible = !job.visible;
-
-  await job.save();
 
   res.status(200).json({
     success: true,

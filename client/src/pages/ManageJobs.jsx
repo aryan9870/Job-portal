@@ -94,7 +94,7 @@ const ManageJobs = () => {
           <tbody>
             {jobs.map((job, index) => {
               return (
-                <tr key={job._id} className="text-gray-700">
+                <tr key={job.id} className="text-gray-700">
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     {index + 1}
                   </td>
@@ -113,7 +113,7 @@ const ManageJobs = () => {
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <input
                       checked={job.visible}
-                      onChange={() => toggleVisibility(job._id)}
+                      onChange={() => toggleVisibility(job.id)}
                       className="scale-125 ml-4"
                       type="checkbox"
                     />

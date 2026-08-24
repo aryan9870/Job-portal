@@ -19,7 +19,7 @@ const Applyjob = () => {
   const navigate = useNavigate();
 
   const fetchJob = async () => {
-    const data = await jobs.filter((job) => job._id == id);
+    const data = await jobs.filter((job) => job.id == id);
     if (data.length !== 0) {
       setJobData(data[0]);
     }
@@ -36,8 +36,8 @@ const Applyjob = () => {
     ? jobs
         .filter(
           (job) =>
-            job.createdBy._id === jobData.createdBy._id &&
-            job._id !== jobData._id,
+            job.created_by === jobData.created_by &&
+            job.id !== jobData.id,
         )
         .slice(0, 3)
     : [];
@@ -73,7 +73,7 @@ const Applyjob = () => {
             <div className="flex flex-col md:flex-row items-center">
               <img
                 className="h-24 bg-white rounded-lg p-4 mr-4 boder max-md:m-4"
-                src={jobData.createdBy.image}
+                src={jobData.image}
                 alt=""
               />
               <div className="text-center md:text-left text-neutral-700">
@@ -81,7 +81,7 @@ const Applyjob = () => {
                 <div className="flex flex-row flex-wrap max-md:justify-center gap-y-2 gap-6 items-center text-gray-600 mt-2">
                   <span className="flex items-center gap-1">
                     <img src={assets.suitcase_icon} alt="" />
-                    {jobData.createdBy.name}
+                    {jobData.name}
                   </span>
                   <span className="flex items-center gap-1">
                     <img src={assets.location_icon} alt="" />
@@ -132,7 +132,7 @@ const Applyjob = () => {
             </div>
             {/* Right Section | More jobs from same company */}
             <div className="w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5">
-              <h2>More jobs from {jobData.createdBy.name}</h2>
+              <h2>More jobs from {jobData.name}</h2>
               {sameCompanyJobs.map((job, index) => {
                 return <JobCard key={index} job={job} />;
               })}
