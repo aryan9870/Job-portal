@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
-import { findUserByEmail, createUser, updateUserResume } from "../models/pgUserModel.js";
+import {
+  findUserByEmail,
+  createUser,
+  updateUserResume,
+} from "../models/userModel.js";
 
 export const registerUser = async (req, res, next) => {
   // Extract user details from request body
@@ -64,7 +68,7 @@ export const registerUser = async (req, res, next) => {
         name: newUser.name,
         email: newUser.email,
         image: newUser.image,
-      }
+      },
     });
 };
 
@@ -115,10 +119,10 @@ export const loginUser = async (req, res, next) => {
       success: true,
       message: "User logged in successfully",
       user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-      }
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
     });
 };
 
@@ -149,7 +153,6 @@ export const uploadUserResume = async (req, res, next) => {
   if (!req.file) {
     return next(new ErrorHandler("Please upload your resume", 400));
   }
-
 
   // Upload resume to Cloudinary
   const result = await uploadToCloudinary(req.file.buffer);

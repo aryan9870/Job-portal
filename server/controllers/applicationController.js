@@ -1,16 +1,14 @@
-import Application from "../models/applicationModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
-import Job from "../models/jobModel.js";
 
 import {
   getExistingApplicationDB,
   createApplicationDB,
   getUserApplicationsDB,
   getRecruiterApplicationsDB,
-  updateApplicationStatusDB
-} from "../models/pgApplicationModel.js";
+  updateApplicationStatusDB,
+} from "../models/applicationModel.js";
 
-import { getJobByIdDB } from "../models/pgJobModel.js";
+import { getJobByIdDB } from "../models/jobModel.js";
 
 // Apply for a job
 export const applyForJob = async (req, res, next) => {
@@ -93,9 +91,7 @@ export const changeApplicationStatus = async (req, res, next) => {
   const allowedStatus = ["pending", "accepted", "rejected"];
 
   if (!status || !allowedStatus.includes(status)) {
-    return next(
-      new ErrorHandler("Invalid or missing status value", 400)
-    );
+    return next(new ErrorHandler("Invalid or missing status value", 400));
   }
 
   // Update application
@@ -107,10 +103,7 @@ export const changeApplicationStatus = async (req, res, next) => {
 
   if (!application) {
     return next(
-      new ErrorHandler(
-        "Application not found or you are not authorized",
-        404
-      )
+      new ErrorHandler("Application not found or you are not authorized", 404),
     );
   }
 

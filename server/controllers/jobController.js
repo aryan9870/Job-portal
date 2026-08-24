@@ -1,5 +1,3 @@
-import Application from "../models/applicationModel.js";
-import Job from "../models/jobModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
 import {
@@ -8,7 +6,7 @@ import {
   getJobByIdDB,
   getRecruiterJobsDB,
   toggleJobVisibilityDB,
-} from "../models/pgJobModel.js";
+} from "../models/jobModel.js";
 
 // Post a new job
 export const postJob = async (req, res, next) => {

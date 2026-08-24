@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler.js";
 
-import { findUserById } from "../models/pgUserModel.js";
+import { findUserById } from "../models/userModel.js";
 
 // Check if logged in
 export const isLoggedIn = async (req, res, next) => {
@@ -34,7 +34,6 @@ export const isRecruiter = (req, res, next) => {
   }
   next();
 };
-
 
 // check if applicant
 export const isApplicant = (req, res, next) => {

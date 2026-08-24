@@ -1,14 +1,18 @@
-import mongoose from "mongoose";
+import pg from "pg";
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
+export const db = new pg.Client({
+    connectionString: process.env.DATABASE_URL,
+});
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error.message}`);
-    process.exit(1); // Stop server if DB fails
-  }
+export const connectDB = async () => {
+    try {
+        await db.connect();
+        console.log("PostgreSQL Connected");
+    } catch (err) {
+        console.error(
+            "PostgreSQL Connection Failed:",
+            err.message
+        );
+    }
 };
 
-export default connectDB;
