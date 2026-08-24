@@ -18,6 +18,7 @@ const ViewApplications = () => {
         { withCredentials: true },
       );
       if (data.success) {
+        console.log(data.applications);
         setApplications(data.applications);
       }
     } catch (error) {
@@ -93,16 +94,16 @@ const ViewApplications = () => {
                   <td className="py-2 px-4 max-sm:px-2 border-b flex justify-center items-center border-gray-200">
                     <img
                       className="w-8 h-8 rounded-full mr-3 max-sm:hidden"
-                      src={application.applicant.image || assets.upload_area}
+                      src={application.applicant_image || assets.upload_area}
                       alt=""
                     />
-                    <span>{application.applicant.name}</span>
+                    <span>{application.applicant_name}</span>
                   </td>
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
-                    {application.job.title}
+                    {application.job_title}
                   </td>
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200 max-sm:hidden">
-                    {application.job.location}
+                    {application.job_location}
                   </td>
                   <td className="py-2 px-4 max-sm:px-2 border-b border-gray-200">
                     <span
@@ -135,7 +136,7 @@ const ViewApplications = () => {
                       <div className="z-10 hidden absolute ring-0 left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block">
                         <button
                           onClick={() =>
-                            updateApplicationStatus(application._id, "accepted")
+                            updateApplicationStatus(application.id, "accepted")
                           }
                           className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100"
                         >
@@ -143,7 +144,7 @@ const ViewApplications = () => {
                         </button>
                         <button
                           onClick={() =>
-                            updateApplicationStatus(application._id, "rejected")
+                            updateApplicationStatus(application.id, "rejected")
                           }
                           className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
                         >

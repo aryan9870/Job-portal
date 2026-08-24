@@ -114,7 +114,7 @@ const Applictions = () => {
         {appliedJobs.length < 1 ? (
           <div className="container min-h-[50vh] flex flex-col items-center justify-center text-center mx-auto px-4">
             <h2 className="text-3xl font-bold mb-3">
-              <i class="fa-solid fa-briefcase"></i> No Applications Yet
+              <i className="fa-solid fa-briefcase"></i> No Applications Yet
             </h2>
 
             <p className="text-gray-500 mb-6">
@@ -159,19 +159,19 @@ const Applictions = () => {
                       <td className="py-3 px-4 flex items-center gap-2 border-b border-gray-200">
                         <img
                           className="w-8 h-8"
-                          src={job.job.createdBy.image}
+                          src={job.recruiter_image}
                           alt=""
                         />
-                        {job.job.createdBy.name}
+                        {job.recruiter_name}
                       </td>
                       <td className="py-2 px-4 border-b border-gray-200 sm:text-lg text-xs">
-                        {job.job.title}
+                        {job.job_title}
                       </td>
                       <td className="py-2 px-4 border-b border-gray-200 max-sm:hidden">
-                        {job.job.location}
+                        {job.job_location}
                       </td>
                       <td className="py-2 px-4 border-b border-gray-200 max-sm:hidden">
-                        {moment(job.createdAt).format("ll")}
+                        {moment(job.created_at).format("ll")}
                       </td>
                       <td className="py-2 px-4 border-b border-gray-200">
                         <span

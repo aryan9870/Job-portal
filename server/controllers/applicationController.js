@@ -2,22 +2,32 @@ import Application from "../models/applicationModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import Job from "../models/jobModel.js";
 
+import {
+  getExistingApplicationDB,
+  createApplicationDB,
+  getUserApplicationsDB,
+  getRecruiterApplicationsDB,
+  updateApplicationStatusDB
+} from "../models/pgApplicationModel.js";
+
+import { getJobByIdDB } from "../models/pgJobModel.js";
+
 // Apply for a job
 export const applyForJob = async (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const jobId = req.params.jobId;
 
   // Check if job exists
-  const job = await Job.findById(jobId);
+  const job = await getJobByIdDB(jobId);
 
   if (!job) {
     return next(new ErrorHandler("Job not found", 404));
   }
 
   // Prevent duplicate application
-  const existingApplication = await Application.findOne({
-    job: jobId,
-    applicant: userId,
+  const existingApplication = await getExistingApplicationDB({
+    jobId,
+    applicantId: userId,
   });
 
   if (existingApplication) {
@@ -25,14 +35,19 @@ export const applyForJob = async (req, res, next) => {
   }
 
   // validate resume
-  if(!req.user.resume) {
-    return next(new ErrorHandler("Please upload your resume befor applying for a job", 422));
+  if (!req.user.resume) {
+    return next(
+      new ErrorHandler(
+        "Please upload your resume befor applying for a job",
+        422,
+      ),
+    );
   }
 
   // Create application
-  const application = await Application.create({
-    job: jobId,
-    applicant: userId,
+  const application = await createApplicationDB({
+    jobId,
+    applicantId: userId,
     status: "pending",
     resume: req.user.resume,
   });
@@ -46,18 +61,9 @@ export const applyForJob = async (req, res, next) => {
 
 // Get logged-in user's applications
 export const getUserJobApplications = async (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
 
-  const applications = await Application.find({ applicant: userId })
-    .populate({
-      path: "job",
-      select: "title location createdBy",
-      populate: {
-        path: "createdBy",
-        select: "name email image",
-      },
-    })
-    .select("status createdAt job");
+  const applications = await getUserApplicationsDB(userId);
 
   res.status(200).json({
     success: true,
@@ -67,27 +73,9 @@ export const getUserJobApplications = async (req, res, next) => {
 
 // Get applications for logged-in recruiter
 export const getRecruiterApplications = async (req, res, next) => {
-  const recruiterId = req.user._id;
+  const recruiterId = req.user.id;
 
-  // Find jobs created by this recruiter
-  const recruiterJobs = await Job.find({ createdBy: recruiterId }).select(
-    "_id",
-  );
-
-  if (recruiterJobs.length < 1) {
-    return res.status(200).json({
-      success: true,
-      message: "No jobs found for this recruiter",
-      applications: [],
-    });
-  }
-
-  const jobIds = recruiterJobs.map((job) => job._id);
-
-  // Find applications for those jobs
-  const applications = await Application.find({ job: { $in: jobIds } })
-    .populate("applicant", "name email image")
-    .populate("job", "title location")
+  const applications = await getRecruiterApplicationsDB(recruiterId);
 
   res.status(200).json({
     success: true,
@@ -99,34 +87,32 @@ export const getRecruiterApplications = async (req, res, next) => {
 export const changeApplicationStatus = async (req, res, next) => {
   const { applicationId } = req.params;
   const { status } = req.body;
+  const recruiterId = req.user.id;
 
   // Validate status
   const allowedStatus = ["pending", "accepted", "rejected"];
 
   if (!status || !allowedStatus.includes(status)) {
-    return next(new ErrorHandler("Invalid or missing status value", 400));
-  }
-
-  // Find application
-  const application = await Application.findById(applicationId).populate("job");
-
-  if (!application) {
-    return next(new ErrorHandler("Application not found", 404));
-  }
-
-  // Check recruiter owns the job
-  if (application.job.createdBy.toString() !== req.user._id.toString()) {
     return next(
-      new ErrorHandler(
-        "You can only update applications for your own jobs",
-        403,
-      ),
+      new ErrorHandler("Invalid or missing status value", 400)
     );
   }
 
-  // Update status
-  application.status = status;
-  await application.save();
+  // Update application
+  const application = await updateApplicationStatusDB({
+    applicationId,
+    status,
+    recruiterId,
+  });
+
+  if (!application) {
+    return next(
+      new ErrorHandler(
+        "Application not found or you are not authorized",
+        404
+      )
+    );
+  }
 
   res.status(200).json({
     success: true,

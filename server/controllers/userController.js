@@ -144,7 +144,7 @@ export const isAuthenticated = async (req, res, next) => {
 };
 
 export const uploadUserResume = async (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
 
   if (!req.file) {
     return next(new ErrorHandler("Please upload your resume", 400));
