@@ -1,284 +1,184 @@
-# 🚀 InsiderJobs – MERN Stack Job Portal
+# InsiderJobs — Full-Stack Job Portal
 
-A full-stack Job Portal web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js).  
-This project simulates a real-world job marketplace where applicants can apply for jobs and recruiters can manage job listings and applications.
+A production-style job board web application where **Applicants** can discover and apply for jobs, and **Recruiters** can post and manage openings. Built with the modern JavaScript stack and a clean separation between client and server.
 
----
-
-## 🌐 Live Demo
-
-🔗 https://job-portal-one-plum.vercel.app
+> Live Demo: https://job-portal-one-plum.vercel.app
 
 ---
 
-## 📌 Features
+## ✨ Overview
 
-### 👤 Applicant Features
-- User registration & login (JWT Authentication)
-- Browse all available jobs
-- View detailed job descriptions
-- Apply for jobs
-- Resume upload with server-side validation
-- Track application status (Pending / Accepted / Rejected)
-- View applied jobs dashboard
-- Fully responsive UI
-
----
-
-### 🧑‍💼 Recruiter Features
-- Recruiter registration & login
-- Create & Manage job listings
-- View all posted jobs
-- View applicants for each job
-- Accept / Reject applications
-- Role-based route protection
-
----
-
-## 🛠 Tech Stack
-
-### 🔹 Frontend
-- React.js
-- Context API (State Management)
-- React Router DOM
-- Axios
-- Tailwind CSS
-- Vite
-
-### 🔹 Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT (Authentication)
-- Multer (File Upload)
-- Cloudinary (Resume Storage)
-
-### 🔹 Deployment
-- Frontend: Vercel
-- Backend: Render
-
----
-
-## 🏗 Project Architecture
-
-### Backend Architecture
-- MVC structure (Models, Controllers, Routes)
-- Middleware-based authentication & authorization
-- Centralized error handling
-- RESTful API design
-- Secure token handling
-
-### Frontend Architecture
-- Component-based structure
-- Context API for global state management
-- Protected routes
-- Clean & scalable folder structure
+InsiderJobs is a role-based job marketplace. Users register as either an **Applicant** or a **Recruiter**, and the app tailors the experience to that role — applicants browse, apply, and track applications, while recruiters post jobs, manage visibility, and review applications.
 
 ---
 
 ## 🔐 Authentication & Authorization
 
-- JWT-based authentication
-- Role-based access (Applicant / Recruiter)
-- Protected API endpoints using middleware
-- Secure token storage with HTTP-only cookies
+- **JWT-based** authentication stored in **HTTP-only cookies**
+- **Role-based access control** (Applicant vs. Recruiter)
+- Protected API endpoints guarded by middleware (`isLoggedIn`, `isApplicant`, `isRecruiter`)
+- Secure cookie flags (`httpOnly`, `secure`, `sameSite`) for production
 
 ---
 
-## 📂 Folder Structure
+## 👤 Applicant Features
 
-# 📁 Project Folder Structure
+- Register & login with profile image upload
+- Browse all available jobs with search by **title** and **location**
+- View detailed job descriptions (rich text)
+- Upload resume (stored on Cloudinary) with size validation
+- Apply for jobs (one application per job)
+- Track application status — **Pending / Accepted / Rejected**
+- View applied jobs dashboard
+
+## 🧑‍💼 Recruiter Features
+
+- Register & login as a recruiter
+- Create job listings with a rich-text editor (Quill)
+- Manage posted jobs (toggle visibility, view applicant count)
+- View all applicants per job with their resumes
+- **Accept / Reject** applications
+- Role-gated dashboard routes
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React 19
+- Vite
+- Tailwind CSS 4
+- React Router DOM 7
+- Context API (global state)
+- Axios (HTTP client)
+- Quill (rich-text editor)
+- Moment.js (date formatting)
+
+### Backend
+- Node.js
+- Express 5
+- PostgreSQL (via `pg`) — Supabase
+- JWT (JSON Web Tokens)
+- bcrypt (password hashing)
+- Multer + Cloudinary (file uploads)
+- cookie-parser
+
+---
+
+## 🏗 Architecture
+
+- **MVC-style** backend: routes → controllers → models (raw SQL)
+- Centralized error handling (`ErrorHandler`)
+- Middleware-based authentication & authorization
+- Component-based frontend with Context API for shared state
+- Protected, role-gated client routes
+
+---
+
+## 📂 Project Structure
 
 ```
-Job-Portal/
+Job-portal/
+├── client/                     # React + Vite frontend
+│   └── src/
+│       ├── components/         # Reusable UI (Navbar, JobCard, Hero, etc.)
+│       ├── context/            # AppContext & AlertContext (global state)
+│       ├── pages/              # Home, ApplyJob, Dashboard, ManageJobs, etc.
+│       ├── App.jsx             # Routing
+│       └── main.jsx            # Entry point
 │
-├── client/                             # Frontend (React + Vite)
-│   │
-│   ├── src/
-│   │   │
-│   │   ├── assets/                     # Static assets (images, icons)
-│   │   │
-│   │   ├── components/                 # Reusable UI Components
-│   │   │   ├── Alert.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Hero.jsx
-│   │   │   ├── JobCard.jsx
-│   │   │   ├── JobListing.jsx
-│   │   │   ├── Loading.jsx
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── RecruiterLogin.jsx
-│   │   │   └── UserLogin.jsx
-│   │   │
-│   │   ├── context/                    # Global State Management
-│   │   │   ├── AlertContext.jsx
-│   │   │   └── AppContext.jsx
-│   │   │
-│   │   ├── pages/                      # Page-level Components
-│   │   │   ├── AddJob.jsx
-│   │   │   ├── Applications.jsx
-│   │   │   ├── ApplyJob.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Home.jsx
-│   │   │   ├── ManageJobs.jsx
-│   │   │   └── ViewApplications.jsx
-│   │   │
-│   │   ├── App.jsx                     # Main Routing File
-│   │   ├── main.jsx                    # Entry Point
-│   │   └── index.css                   # Global Styles
-│   │
-│   ├── .env                            # Frontend Environment Variables
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-│
-├── server/                             # Backend (Node + Express)
-│   │
-│   ├── config/                         # Configuration Files
-│   │   ├── cloudinary.js
-│   │   └── db.js
-│   │
-│   ├── controllers/                    # Business Logic Layer
-│   │   ├── applicationController.js
-│   │   ├── jobController.js
-│   │   └── userController.js
-│   │
-│   ├── middleware/                     # Custom Middleware
-│   │   ├── authMiddleware.js
-│   │   └── multer.js
-│   │
-│   ├── models/                         # Database Schemas (Mongoose)
-│   │   ├── applicationModel.js
-│   │   ├── jobModel.js
-│   │   └── userModel.js
-│   │
-│   ├── routes/                         # API Routes
-│   │   ├── applicationRoutes.js
-│   │   ├── jobRoute.js
-│   │   └── userRoute.js
-│   │
-│   ├── utils/                          # Utility Functions
-│   │   ├── errorHandler.js
-│   │   └── uploadToCloudinary.js
-│   │
-│   ├── server.js                       # Express Entry Point
-│   ├── .env                            # Backend Environment Variables
-│   ├── package.json
-│   └── package-lock.json
-│
-├── .gitignore
-└── README.md
+└── server/                     # Node + Express backend
+    ├── config/                 # DB connection, Cloudinary
+    ├── controllers/            # Business logic
+    ├── middleware/             # Auth & Multer
+    ├── models/                 # SQL query layer
+    ├── routes/                 # API routes
+    ├── utils/                  # Error handler, Cloudinary upload
+    └── server.js               # Express entry point
 ```
 
 ---
 
-# 📦 Installation & Setup
+## 🚀 Getting Started
 
-Follow the steps below to run the project locally.
+### Prerequisites
 
----
+- Node.js 18+
+- A PostgreSQL database (e.g., Supabase)
+- A Cloudinary account (for image/resume uploads)
 
-## 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/aryan9870/Job-portal.git
-cd Job-portal
-```
-
----
-
-## 🔹 Backend Setup (Server)
+### 1. Backend
 
 ```bash
 cd server
 npm install
 ```
 
-### ▶ Create a `.env` file inside the `server` folder:
+Create a `.env` file (see `.env.example`):
 
 ```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+PORT=3000
+NODE_ENV=development
+JWT_SECRET=your_jwt_secret
+CLOUD_NAME=your_cloud_name
+API_KEY=your_api_key
+API_SECRET=your_api_secret
+DATABASE_URL=your_postgresql_connection_string
 ```
-
-### ▶ Start Backend Server
 
 ```bash
 npm run dev
 ```
 
-Backend runs on:
-```
-http://localhost:5000
-```
-
----
-
-## 🔹 Frontend Setup (Client)
-
-Open a new terminal:
+### 2. Frontend
 
 ```bash
 cd client
 npm install
 ```
 
-### ▶ Create a `.env` file inside the `client` folder:
+Create a `.env` file:
 
 ```env
-VITE_BACKEND_URL=http://localhost:5000
+VITE_BACKEND_URL=http://localhost:3000
 ```
-
-### ▶ Start Frontend
 
 ```bash
 npm run dev
 ```
 
-Frontend runs on:
-```
-http://localhost:5173
-```
-
 ---
 
-## 🧠 What I Learned
+## 🔌 API Endpoints
 
-- Designing scalable backend architecture
-- Implementing complete JWT authentication flow
-- Handling file uploads using Multer & Cloudinary
-- Role-based authorization system
-- State management using Context API
-- Writing production-style clean code
-- Improving UX with loading states & empty state UI
-- Environment configuration & deployment setup
-
----
-
-## 🚀 Future Improvements
-
-- Email notifications for application updates
-- Dark mode support
+| Method | Endpoint                          | Access     | Description                        |
+| ------ | --------------------------------- | ---------- | ---------------------------------- |
+| POST   | `/api/users/register`             | Public     | Register (multipart image upload)  |
+| POST   | `/api/users/login`                | Public     | Login                              |
+| GET    | `/api/users/logout`               | Logged in  | Logout & clear cookie              |
+| GET    | `/api/users/is-auth`              | Logged in  | Check auth status                  |
+| POST   | `/api/users/resume`               | Applicant  | Upload resume                      |
+| GET    | `/api/jobs`                       | Public     | List all visible jobs              |
+| POST   | `/api/jobs`                       | Recruiter  | Create a job                       |
+| GET    | `/api/jobs/recruiter`             | Recruiter  | List own jobs + applicant count    |
+| GET    | `/api/jobs/:jobId`                | Public     | Get a single job                   |
+| PATCH  | `/api/jobs/:jobId`                | Recruiter  | Toggle job visibility              |
+| GET    | `/api/applications`               | Applicant  | List own applications              |
+| GET    | `/api/applications/recruiter`     | Recruiter  | List applications on own jobs      |
+| POST   | `/api/applications/:jobId`        | Applicant  | Apply for a job                    |
+| PATCH  | `/api/applications/:applicationId`| Recruiter  | Accept / reject an application     |
 
 ---
 
 ## 👨‍💻 Author
 
-**Aryan Singh**  
-Full Stack Developer | MERN Stack | React Developer  
+**Aryan Singh** — Full Stack Developer
 
-GitHub: https://github.com/aryan9870  
-LinkedIn: ( https://www.linkedin.com/in/aryan-singh-949144313/ )
+- GitHub: https://github.com/aryan9870
+- LinkedIn: https://www.linkedin.com/in/aryan-singh-949144313/
 
 ---
 
-## ⭐ Support
+## 📄 License
 
-If you like this project, give it a star ⭐ on GitHub!
-
-Built with ❤️ by Aryan
+This project is open source and available for educational use.
