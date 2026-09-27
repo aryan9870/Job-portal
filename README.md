@@ -63,6 +63,9 @@ InsiderJobs is a role-based job marketplace. Users register as either an **Appli
 - Multer + Cloudinary (file uploads)
 - cookie-parser
 
+### DevOps
+- Docker + Docker Compose (separate `client` / `server` images, root `docker-compose.yml`)
+
 ---
 
 ## 🏗 Architecture
@@ -80,6 +83,8 @@ InsiderJobs is a role-based job marketplace. Users register as either an **Appli
 ```
 Job-portal/
 ├── client/                     # React + Vite frontend
+│   ├── Dockerfile              # Client dev container (Vite, --host)
+│   ├── .dockerignore           # Excludes node_modules, .env
 │   └── src/
 │       ├── components/         # Reusable UI (Navbar, JobCard, Hero, etc.)
 │       ├── context/            # AppContext & AlertContext (global state)
@@ -87,14 +92,18 @@ Job-portal/
 │       ├── App.jsx             # Routing
 │       └── main.jsx            # Entry point
 │
-└── server/                     # Node + Express backend
-    ├── config/                 # DB connection, Cloudinary
-    ├── controllers/            # Business logic
-    ├── middleware/             # Auth & Multer
-    ├── models/                 # SQL query layer
-    ├── routes/                 # API routes
-    ├── utils/                  # Error handler, Cloudinary upload
-    └── server.js               # Express entry point
+├── server/                     # Node + Express backend
+│   ├── Dockerfile              # Server container (npm start)
+│   ├── .dockerignore           # Excludes node_modules, .env
+│   ├── config/                 # DB connection, Cloudinary
+│   ├── controllers/            # Business logic
+│   ├── middleware/             # Auth & Multer
+│   ├── models/                 # SQL query layer
+│   ├── routes/                 # API routes
+│   ├── utils/                  # Error handler, Cloudinary upload
+│   └── server.js               # Express entry point
+│
+└── docker-compose.yml          # Orchestrates client + server
 ```
 
 ---
@@ -106,8 +115,11 @@ Job-portal/
 - Node.js 18+
 - A PostgreSQL database (e.g., Supabase)
 - A Cloudinary account (for image/resume uploads)
+- Docker Desktop (includes Compose, only for the Docker setup)
 
-### 1. Backend
+### Option A: Run manually (without Docker)
+
+#### 1. Backend
 
 ```bash
 cd server
@@ -130,7 +142,7 @@ DATABASE_URL=your_postgresql_connection_string
 npm run dev
 ```
 
-### 2. Frontend
+#### 2. Frontend
 
 ```bash
 cd client
@@ -145,6 +157,54 @@ VITE_BACKEND_URL=http://localhost:3000
 
 ```bash
 npm run dev
+```
+
+### Option B: Run with Docker (easiest)
+
+Use this if you don't want to do `npm install` twice. One command runs both frontend + backend.
+
+**Step 1: Install Docker**
+
+Install Docker Desktop and keep it running.
+
+**Step 2: Create your env files**
+
+You need 2 files. Just copy from examples:
+
+```bash
+# server env
+cp server/.env.example server/.env
+
+# client env
+cp client/.env.example client/.env
+```
+
+> Windows CMD doesn't support `cp` — use `copy` instead, or use Git Bash.
+
+Then open file and replace placeholders with actual values (`DATABASE_URL`, `JWT_SECRET`, Cloudinary keys, etc.).
+
+**Step 3: Start the app**
+
+Run this from project root
+
+```bash
+docker compose up --build
+```
+
+That's it. Docker will:
+1. Build server image and run it on port `3000`
+2. Build client image and run it on port `5173`
+3. Automatically load your `.env` files
+
+**Step 4: Open in browser**
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:3000
+
+**Step 5: Stop the app**
+
+```bash
+docker compose down
 ```
 
 ---
