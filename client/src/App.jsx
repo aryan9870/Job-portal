@@ -12,10 +12,15 @@ import ManageJobs from "./pages/ManageJobs";
 import ViewApplications from "./pages/ViewApplications";
 import "quill/dist/quill.snow.css";
 import Alert from "./components/Alert";
+import Loading from "./components/Loading";
 
 const App = () => {
-  const { showRecruiterLogin, showUserLogin, isLoggedIn, user } =
+  const { showRecruiterLogin, showUserLogin, isLoggedIn, user, isAuthLoading } =
     useContext(AppContext);
+
+  if (isAuthLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>

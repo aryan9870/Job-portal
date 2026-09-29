@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 const JobCard = ({ job }) => {
 
     const navigate = useNavigate()
-    console.log(job);
 
   return (
     <div className='border border-gray-200 p-6 shadow rounded'>

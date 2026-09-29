@@ -7,7 +7,6 @@ export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
-  console.log(backendUrl);
   const [searchFilter, setSearchFilter] = useState({ title: "", location: "" });
   const [isSearched, setIsSearched] = useState(false);
 
@@ -17,6 +16,8 @@ export const AppContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
   const [jobs, setJobs] = useState([]);
 
 
@@ -24,7 +25,6 @@ export const AppContextProvider = (props) => {
     try {
       const { data } = await axios.get(backendUrl + "/api/jobs", {withCredentials: true});
       if(data.success) {
-        console.log(data);
         setJobs(data.jobs);
       }
     } catch (error) {
@@ -37,7 +37,6 @@ export const AppContextProvider = (props) => {
       const { data } = await axios.get(backendUrl + '/api/users/is-auth', {
         withCredentials: true,
       });
-      console.log(data);
       if (data.success) {
         setIsLoggedIn(true);
         setUser(data.user);
@@ -49,6 +48,8 @@ export const AppContextProvider = (props) => {
       setIsLoggedIn(false);
       setUser(null);
       console.log(error.response?.data?.message);
+    } finally {
+        setIsAuthLoading(false);
     }
   };
 
@@ -74,7 +75,8 @@ export const AppContextProvider = (props) => {
     checkIsLoggedIn,
     jobs,
     setJobs,
-    fetchGlobalJobs
+    fetchGlobalJobs,
+    isAuthLoading
   };
 
   return (
